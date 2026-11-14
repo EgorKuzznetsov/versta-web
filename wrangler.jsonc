@@ -4,6 +4,8 @@
   "name": "versta-web",
   "compatibility_date": "2026-11-13",
   "main": "./worker/index.js",
+  // public address versta-web.egor-andreevich2017.workers.dev (set false once a custom domain is attached, if you want)
+  "workers_dev": true,
   "assets": {
     "directory": "./dist/",
     "binding": "ASSETS",

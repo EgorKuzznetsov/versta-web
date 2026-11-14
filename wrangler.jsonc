@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Must match the Worker name in the Cloudflare dashboard
+  "name": "versta-web",
+  "compatibility_date": "2026-11-13",
+  "main": "./worker/index.js",
+  "assets": {
+    "directory": "./dist/",
+    "binding": "ASSETS",
+    // pre-rendered pages + dist/404.html for unknown addresses
+    "not_found_handling": "404-page",
+    // only the form endpoint runs the Worker; everything else is served as static files
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true }
+}

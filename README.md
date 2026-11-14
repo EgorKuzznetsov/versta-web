@@ -44,7 +44,12 @@ npm run preview    # просмотр собранной версии
 
 ---
 
-## 3. Публикация на Cloudflare Pages
+## 3. Публикация на Cloudflare
+
+Проект развёрнут как **Cloudflare Worker со статическими файлами** (`wrangler.jsonc`): сайт отдаётся из `dist/`, а `worker/index.js` обрабатывает только `POST /api/lead` (отправка заявок). Подключение к GitHub: Workers & Pages → проект → Settings → Build — Build command `npm run build`, Deploy command `npx wrangler deploy`. Каждый push в `main` публикуется автоматически.
+
+Папка `functions/` оставлена для совместимости: если когда-нибудь развернуть проект как Cloudflare Pages, отправка заявок тоже будет работать.
+
 
 ### Вариант А — через GitHub (рекомендуется, обновления автоматические)
 

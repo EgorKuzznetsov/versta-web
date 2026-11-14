@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useT } from '../core/i18n';
 import { Link } from '../core/router';
 import { Icon } from '../components/Icon';
@@ -22,6 +22,30 @@ export default function Contact() {
   const [status, setStatus] = useState<Status>('idle');
   const [fromCalc, setFromCalc] = useState(false);
   const { copy, done } = useCopy();
+  const [errCode, setErrCode] = useState('');
+  const openedAt = useRef(Date.now()); // bots submit instantly; the server ignores submissions faster than ~2.5 s
+  const tsBox = useRef<HTMLDivElement>(null);
+  const tsId = useRef<string | null>(null);
+  const [tsToken, setTsToken] = useState('');
+  const siteKey = (site.form as any).turnstileSiteKey as string;
+
+  // Optional Cloudflare Turnstile (bot check) — only when a site key is configured
+  useEffect(() => {
+    if (!siteKey || !tsBox.current) return;
+    const w = window as any;
+    const render = () => {
+      if (!tsBox.current || tsId.current) return;
+      tsId.current = w.turnstile.render(tsBox.current, {
+        sitekey: siteKey, appearance: 'interaction-only', language: lang === 'uk' ? 'uk' : 'en',
+        callback: (tok: string) => setTsToken(tok), 'expired-callback': () => setTsToken(''), 'error-callback': () => setTsToken(''),
+      });
+    };
+    if (w.turnstile) { render(); return; }
+    let s = document.querySelector('script[data-ts]') as HTMLScriptElement | null;
+    if (!s) { s = document.createElement('script'); s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'; s.async = true; s.dataset.ts = '1'; document.head.appendChild(s); }
+    s.addEventListener('load', render);
+    return () => { s?.removeEventListener('load', render); try { if (tsId.current) w.turnstile?.remove(tsId.current); } catch { /* noop */ } tsId.current = null; };
+  }, [siteKey, lang, status === 'ok']);
 
   useEffect(() => {
     try {
@@ -63,9 +87,12 @@ export default function Contact() {
     try {
       const res = await fetch(site.form.endpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...site.form.extraFields, name: f.name, business: f.business, type: typeLabel, budget: budgetLabel, plan: planLabel, description: f.description, method: methodLabel, contact: f.contact, lang, page: location.href }),
+        body: JSON.stringify({ ...site.form.extraFields, t: Date.now() - openedAt.current, turnstile: tsToken || undefined, website: f.website || undefined, name: f.name, business: f.business, type: typeLabel, budget: budgetLabel, plan: planLabel, description: f.description, method: methodLabel, contact: f.contact, lang, page: location.href }),
       });
-      setStatus(res.ok ? 'ok' : 'error');
+      if (res.ok) { setStatus('ok'); return; }
+      setErrCode(res.status === 429 ? 'rate' : res.status === 403 ? 'bot' : '');
+      setStatus('error');
+      try { if (tsId.current) { (window as any).turnstile?.reset(tsId.current); setTsToken(''); } } catch { /* noop */ }
     } catch { setStatus('error'); }
   };
 
@@ -95,8 +122,8 @@ export default function Contact() {
               {fromCalc && <p className="cform-note mono"><Icon n="info" s={14} /> {c.fromCalc}</p>}
               {fromPlan && !fromCalc && <p className="cform-note mono"><Icon n="info" s={14} /> {c.fromPlan}</p>}
               <div className="cform-2">
-                <label className={cx('field', errs.name && 'err')}><span>{c.name} *</span><input value={f.name} onChange={set('name')} autoComplete="name" required /></label>
-                <label className="field"><span>{c.business}</span><input value={f.business} onChange={set('business')} autoComplete="organization" /></label>
+                <label className={cx('field', errs.name && 'err')}><span>{c.name} *</span><input value={f.name} onChange={set('name')} autoComplete="name" maxLength={120} required /></label>
+                <label className="field"><span>{c.business}</span><input value={f.business} onChange={set('business')} autoComplete="organization" maxLength={200} /></label>
               </div>
               <div className="cform-2">
                 <label className="field"><span>{c.type}</span>
@@ -113,7 +140,7 @@ export default function Contact() {
                 </select>
               </label>
               <label className={cx('field', errs.description && 'err')}><span>{c.description} *</span>
-                <textarea rows={6} value={f.description} onChange={set('description')} placeholder={c.descriptionHint} required />
+                <textarea rows={6} value={f.description} onChange={set('description')} placeholder={c.descriptionHint} maxLength={4000} required />
               </label>
               <div className="field">
                 <span>{c.method}</span>
@@ -123,7 +150,7 @@ export default function Contact() {
                   ))}
                 </div>
               </div>
-              <label className={cx('field', errs.contact && 'err')}><span>{c.contactValue} *</span><input value={f.contact} onChange={set('contact')} required /></label>
+              <label className={cx('field', errs.contact && 'err')}><span>{c.contactValue} *</span><input value={f.contact} onChange={set('contact')} maxLength={200} required /></label>
               <input className="hp" tabIndex={-1} autoComplete="off" value={f.website} onChange={set('website')} aria-hidden="true" name="website" />
               <label className={cx('check', errs.consent && 'err')}>
                 <input type="checkbox" checked={f.consent} onChange={set('consent')} />
@@ -131,7 +158,8 @@ export default function Contact() {
                 <span>{c.consent} <Link to="legal/privacy" className="tlink">{c.consentLink}</Link></span>
               </label>
               {Object.values(errs).some(Boolean) && <p className="form-err" role="alert">{c.required}</p>}
-              {status === 'error' && <p className="form-err" role="alert">{c.error}</p>}
+              {siteKey && <div ref={tsBox} className="ts-box" />}
+              {status === 'error' && <p className="form-err" role="alert">{errCode === 'rate' ? c.rateLimited : errCode === 'bot' ? c.botCheck : c.error}</p>}
               {status === 'offline' && (
                 <div className="form-off" role="alert">
                   <p>{c.notConnected}</p>

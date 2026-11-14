@@ -279,6 +279,8 @@ const en: Dict = {
     sending: 'Sending…',
     success: 'Request received. We’ll get back to you shortly.',
     error: 'The request could not be sent. Please try again or contact us directly.',
+    rateLimited: 'Too many attempts in a short time. Please wait a minute and try again.',
+    botCheck: 'The automatic check failed. Please reload the page and try again, or contact us directly.',
     notConnected: 'The online form is not connected to a delivery service yet, so your request was not sent. Copy the text and message us directly — that way we’ll definitely get it.',
     copyText: 'Copy request text',
     required: 'Please fill in the required fields',

@@ -667,3 +667,5 @@ button.clink { font: inherit; color: inherit; text-align: left; }
 .em-menu a, .em-menu button { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--ink) !important; text-align: left; white-space: nowrap; }
 .em-menu a:hover, .em-menu button:hover, .em-menu a:focus-visible, .em-menu button:focus-visible { background: var(--milk); }
 .em-addr { padding: 8px 12px 6px; border-top: 1px solid var(--line); margin-top: 4px; font-family: var(--mono); font-size: 11px; color: var(--mid); }
+.ts-box:empty { display: none; }
+.ts-box { min-height: 0; }

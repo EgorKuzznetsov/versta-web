@@ -18,9 +18,10 @@
     "phone": ""
   },
   "form": {
-    "_comment": "endpoint: порожньо = форма не підключена (сайт чесно про це повідомить). '/api/lead' = вбудована функція Cloudflare Pages (див. README). Або URL Formspree/Web3Forms тощо.",
+    "_comment": "endpoint: '/api/lead' = вбудований обробник (Cloudflare Worker). turnstileSiteKey: публічний ключ Cloudflare Turnstile (захист від ботів); секретний ключ — TURNSTILE_SECRET у Cloudflare. Порожньо = Turnstile вимкнено.",
     "endpoint": "/api/lead",
-    "extraFields": {}
+    "extraFields": {},
+    "turnstileSiteKey": ""
   },
   "legal": {
     "ownerName": "",

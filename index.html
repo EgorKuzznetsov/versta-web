@@ -18,11 +18,9 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=onest:400,500,600,700|jetbrains-mono:400,500&display=swap" media="print" onload="this.media='all'" />
+    <link id="fonts" rel="stylesheet" href="https://fonts.bunny.net/css?family=onest:400,500,600,700|jetbrains-mono:400,500&display=swap" media="print" />
     <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=onest:400,500,600,700|jetbrains-mono:400,500&display=swap" /></noscript>
-    <script>
-      try { if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('rm'); } catch (e) {}
-    </script>
+    <script src="/boot.js"></script>
   </head>
   <body>
     <div id="root"></div>

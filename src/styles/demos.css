@@ -776,3 +776,8 @@
   .es-logo span { display: none; }
 }
 @media (max-width: 520px) { .es-mort-r { grid-template-columns: 1fr; } .es-chip { padding: 0 10px; } }
+.an-grid.an-single { grid-template-columns: 1fr; }
+.an-more { margin-top: 12px; font-size: 13px; color: var(--ac); }
+.an-more:hover { text-decoration: underline; }
+.crm-card:focus-visible { outline: 2px solid var(--ac); outline-offset: 2px; }
+.crm-card { cursor: pointer; }

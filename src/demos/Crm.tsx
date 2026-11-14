@@ -109,7 +109,7 @@ export default function Crm() {
           </div>
         </header>
 
-        {view === 'deals' && <Board deals={deals} setDeals={setDeals} clients={clients} cname={cname} M={M} />}
+        {view === 'deals' && <Board deals={deals} setDeals={setDeals} clients={clients} cname={cname} M={M} onOpen={setOpenC} />}
         {view === 'clients' && <Clients clients={clients} onOpen={setOpenC} M={M} />}
         {view === 'tasks' && <Tasks tasks={tasks} setTasks={setTasks} clients={clients} cname={cname} />}
         <DemoNote className="crm-note" />
@@ -235,7 +235,7 @@ function ClientForm({ c, onSave, onCancel }: { c: Client; onSave: (c: Client) =>
 }
 
 /* ---------- Kanban with pointer-based drag & drop (mouse, pen and touch) ---------- */
-function Board({ deals, setDeals, clients, cname, M }: { deals: Deal[]; setDeals: (d: Deal[]) => void; clients: Client[]; cname: (id?: string) => string; M: (v: number) => string }) {
+function Board({ deals, setDeals, clients, cname, M, onOpen }: { deals: Deal[]; setDeals: (d: Deal[]) => void; clients: Client[]; cname: (id?: string) => string; M: (v: number) => string; onOpen: (clientId: string) => void }) {
   const { lang } = useT();
   const T = (uk: string, en: string) => (lang === 'uk' ? uk : en);
   const [drag, setDrag] = useState<{ id: string; x: number; y: number; ox: number; oy: number; w: number } | null>(null);
@@ -245,6 +245,7 @@ function Board({ deals, setDeals, clients, cname, M }: { deals: Deal[]; setDeals
   const board = useRef<HTMLDivElement>(null);
   const pending = useRef<{ id: string; sx: number; sy: number; el: HTMLElement; pid: number } | null>(null);
   const edge = useRef(0);
+  const moved = useRef(false); // true right after a drag, so the click that ends it doesn't open the card
 
   const open = deals.filter((d) => d.stage !== 'won' && d.stage !== 'lost');
   const pipe = open.reduce((a, d) => a + d.value, 0);
@@ -274,6 +275,7 @@ function Board({ deals, setDeals, clients, cname, M }: { deals: Deal[]; setDeals
     if (p && !drag) {
       if (Math.hypot(e.clientX - p.sx, e.clientY - p.sy) < 5) return;
       const r = p.el.getBoundingClientRect();
+      moved.current = true;
       setDrag({ id: p.id, x: e.clientX, y: e.clientY, ox: p.sx - r.left, oy: p.sy - r.top, w: r.width });
       return;
     }
@@ -299,7 +301,7 @@ function Board({ deals, setDeals, clients, cname, M }: { deals: Deal[]; setDeals
         <div className="acc"><span>{T('Потенційна виручка', 'Weighted forecast')}</span><b>{M(weighted)}</b><small>{T('з урахуванням імовірності етапу', 'weighted by stage probability')}</small></div>
         <div><span>{T('Виграно', 'Won')}</span><b>{M(won)}</b><small>{T('Угод', 'Deals')}: {deals.filter((d) => d.stage === 'won').length}</small></div>
       </div>
-      <p className="crm-hint"><Icon n="grip" s={14} /> {T('Перетягніть картку між колонками. На телефоні — тягніть за значок.', 'Drag cards between columns. On a phone, drag by the handle.')}</p>
+      <p className="crm-hint"><Icon n="grip" s={14} /> {T('Натисніть на картку, щоб відкрити клієнта. Перетягніть — щоб змінити етап (на телефоні — за значок).', 'Click a card to open the client. Drag it to change the stage (on a phone, by the handle).')}</p>
       <div className="crm-board" ref={board}>
         {STAGES.map((s) => {
           const items = deals.filter((d) => d.stage === s.id);
@@ -309,7 +311,10 @@ function Board({ deals, setDeals, clients, cname, M }: { deals: Deal[]; setDeals
               <header><b>{lang === 'uk' ? s.uk : s.en}</b><span>{items.length}</span><small>{M(sum)} · {Math.round(s.p * 100)}%</small></header>
               <div className="crm-cards">
                 {items.map((d) => (
-                  <article key={d.id} className={cx('crm-card', drag?.id === d.id && 'ghosted')} onPointerDown={(e) => down(e, d.id)} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
+                  <article key={d.id} className={cx('crm-card', drag?.id === d.id && 'ghosted')} tabIndex={0} aria-label={`${d.title} — ${cname(d.client)}`}
+                    onPointerDown={(e) => { moved.current = false; down(e, d.id); }} onPointerMove={move} onPointerUp={up} onPointerCancel={up}
+                    onClick={(e) => { if (moved.current) { moved.current = false; return; } if ((e.target as HTMLElement).closest('select,.crm-grip')) return; onOpen(d.client); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' && e.target === e.currentTarget) onOpen(d.client); }}>
                     <div className="crm-card-h"><b>{d.title}</b><span className="crm-grip" aria-hidden="true"><Icon n="grip" s={16} /></span></div>
                     <p>{cname(d.client)}</p>
                     <div className="crm-card-f"><b>{M(d.value)}</b>

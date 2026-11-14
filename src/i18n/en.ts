@@ -326,6 +326,11 @@ const en: Dict = {
     small: 'A small change is',
     other: 'Good to know',
   },
+  mail: {
+    gmail: 'Write in Gmail',
+    app: 'Open mail app',
+    copy: 'Copy address',
+  },
   footer: {
     note: 'Website design and development for business.',
     legal: 'Legal',

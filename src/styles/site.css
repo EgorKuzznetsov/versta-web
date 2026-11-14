@@ -656,3 +656,14 @@ a.lo-row:hover .lo-go { transform: rotate(45deg); color: var(--accent); }
 .calc-bar-r { display: grid; justify-items: end; gap: 2px; }
 .field.hl select { border-color: var(--accent); }
 @media (max-width: 640px) { .cf-plans { grid-template-columns: 1fr 1fr; } }
+
+/* Email menu */
+.em { position: relative; display: inline-flex; }
+button.clink { font: inherit; color: inherit; text-align: left; }
+.ftr-col button.clink { color: rgba(248, 246, 240, 0.85); }
+.ftr-col button.clink:hover, .contact-links button.clink:hover { color: var(--accent); }
+.em-menu { position: absolute; left: 0; top: calc(100% + 6px); z-index: 70; min-width: 240px; display: grid; padding: 6px; background: var(--paper); color: var(--ink); border: 1px solid var(--ink); box-shadow: 0 18px 40px -18px rgba(15, 15, 14, 0.45); animation: bkIn 0.25s var(--ease) both; font-size: 15px; font-weight: 400; letter-spacing: normal; text-transform: none; }
+.em-up .em-menu { top: auto; bottom: calc(100% + 6px); }
+.em-menu a, .em-menu button { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: var(--ink) !important; text-align: left; white-space: nowrap; }
+.em-menu a:hover, .em-menu button:hover, .em-menu a:focus-visible, .em-menu button:focus-visible { background: var(--milk); }
+.em-addr { padding: 8px 12px 6px; border-top: 1px solid var(--line); margin-top: 4px; font-family: var(--mono); font-size: 11px; color: var(--mid); }

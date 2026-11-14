@@ -4,6 +4,7 @@ import { navigate, href } from '../core/router';
 import { Icon } from '../components/Icon';
 import { Reveal, SplitLine } from '../components/Reveal';
 import { Seo } from '../components/Chrome';
+import { EmailMenu } from '../components/EmailMenu';
 import { pricing, ITEMS, PLANS, DAYS, ItemId, PlanId, Feat, PricingConfig, Price } from '../config/pricing';
 import { nowPrice, promoOn, discountPct, fmt } from '../core/price';
 import { cx } from '../core/format';
@@ -88,7 +89,6 @@ export default function Calculator() {
   ].filter((x, i, a) => x !== '' || (a[i - 1] !== '' && i > 0)).join('\n');
 
   const tg = 'https://t.me/share/url?url=' + encodeURIComponent(site.domain) + '&text=' + encodeURIComponent(summary);
-  const mail = 'mailto:' + (site.contacts.email || '') + '?subject=' + encodeURIComponent(t.calc.summaryTitle) + '&body=' + encodeURIComponent(summary);
   const discuss = () => {
     try {
       sessionStorage.setItem('versta.calcSummary', summary);
@@ -227,7 +227,7 @@ export default function Calculator() {
                 <div className="cr-share">
                   <button type="button" className="btn btn-s" onClick={() => copy(summary)}><Icon n={done ? 'check' : 'copy'} s={16} /> {done ? t.common.copied : t.calc.copy}</button>
                   <a className="btn btn-s" href={tg} target="_blank" rel="noopener"><Icon n="telegram" s={16} /> Telegram</a>
-                  <a className="btn btn-s" href={mail}><Icon n="mail" s={16} /> Email</a>
+                  <EmailMenu to={site.contacts.email} subject={t.calc.summaryTitle} body={summary} className="btn btn-s" up><Icon n="mail" s={16} /> Email</EmailMenu>
                 </div>
               </div>
               <p className="small muted cr-disc">{t.promo.note} {t.calc.disclaimer}</p>

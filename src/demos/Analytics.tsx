@@ -62,7 +62,9 @@ export default function Analytics() {
   const [compare, setCompare] = useStored('demo.analytics.compare', true);
   const [q, setQ] = useState('');
   const top = useRef<HTMLDivElement>(null);
-  const secs = { charts: useRef<HTMLDivElement>(null), services: useRef<HTMLDivElement>(null), orders: useRef<HTMLDivElement>(null) };
+  // sidebar switches real views; overview shows everything
+  const [view, setView] = useState<'overview' | 'charts' | 'services' | 'orders'>('overview');
+  const show = (v: typeof view) => view === 'overview' || view === v;
 
   const from = preset === 'custom' ? range.from : addDays(today, -(+preset - 1));
   const to = preset === 'custom' ? range.to : today;
@@ -111,8 +113,8 @@ export default function Analytics() {
 
   const recent = useMemo(() => {
     const qq = q.trim().toLowerCase();
-    return data.cur.slice().reverse().filter((o) => !qq || name(o.c).toLowerCase().includes(qq) || L(SERVICES[o.s]).toLowerCase().includes(qq) || String(o.id).includes(qq)).slice(0, 12);
-  }, [data.cur, q, lang]);
+    return data.cur.slice().reverse().filter((o) => !qq || name(o.c).toLowerCase().includes(qq) || L(SERVICES[o.s]).toLowerCase().includes(qq) || String(o.id).includes(qq)).slice(0, view === 'orders' ? 60 : 12);
+  }, [data.cur, q, lang, view]);
 
   const M = (v: number) => money(v, lang, { decimals: false });
   // chart values are converted to the display currency first, so axis ticks are "nice" in that currency
@@ -135,7 +137,6 @@ export default function Analytics() {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
-  const go = (r: React.RefObject<HTMLDivElement | null>) => r.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const presets: [Preset, string][] = [['7', T('7 днів', '7 days')], ['30', T('30 днів', '30 days')], ['90', T('Квартал', 'Quarter')], ['365', T('Рік', 'Year')], ['custom', T('Свій період', 'Custom')]];
   const maxSvc = data.svc[0]?.rev || 1;
   const totalSvc = data.svc.reduce((a, s) => a + s.rev, 0) || 1;
@@ -145,10 +146,9 @@ export default function Analytics() {
       <aside className="an-side">
         <div className="an-logo"><span>L</span>Ledger</div>
         <nav>
-          <button type="button" className="on" onClick={() => top.current?.scrollIntoView({ behavior: 'smooth' })}><Icon n="layers" s={18} /><span>{T('Огляд', 'Overview')}</span></button>
-          <button type="button" onClick={() => go(secs.charts)}><Icon n="chart" s={18} /><span>{T('Графіки', 'Charts')}</span></button>
-          <button type="button" onClick={() => go(secs.services)}><Icon n="tag" s={18} /><span>{T('Послуги', 'Services')}</span></button>
-          <button type="button" onClick={() => go(secs.orders)}><Icon n="calendar" s={18} /><span>{T('Замовлення', 'Orders')}</span></button>
+          {([['overview', 'layers', T('Огляд', 'Overview')], ['charts', 'chart', T('Графіки', 'Charts')], ['services', 'tag', T('Послуги', 'Services')], ['orders', 'calendar', T('Замовлення', 'Orders')]] as const).map(([k, ic, l]) => (
+            <button key={k} type="button" className={cx(view === k && 'on')} aria-pressed={view === k} onClick={() => { setView(k); top.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}><Icon n={ic} s={18} /><span>{l}</span></button>
+          ))}
         </nav>
         <div className="an-org"><span className="an-av">{T('П', 'P')}</span><div><b>{T('СТО «Півоберта»', '“Pivoberta” car service')}</b><small>{T('3 бокси · демо', '3 bays · demo')}</small></div></div>
       </aside>
@@ -183,23 +183,23 @@ export default function Analytics() {
           <Kpi label={T('Прибуток', 'Profit')} v={data.k.profit} p={data.pk.profit} fmt={M} cmp={compare} sub={data.k.rev ? `${T('маржа', 'margin')} ${num((data.k.profit / data.k.rev) * 100, lang, 1)}%` : ''} />
         </div>
 
-        <div className="an-grid" ref={secs.charts}>
-          <section className="an-card an-wide">
+        <div className={cx('an-grid', view !== 'overview' && 'an-single')}>
+          {show('charts') && <section className="an-card an-wide">
             <header><h2>{T('Виручка', 'Revenue')}</h2>
               <div className="an-legend"><span><i className="l-a" />{T('Поточний період', 'Current period')}</span>{compare && <span><i className="l-p" />{T('Попередній', 'Previous')}</span>}</div>
             </header>
             <LineChart labels={data.labels} cur={cv(data.rev)} prev={compare ? cv(data.prevRev) : undefined} fmt={Md} fmtAxis={Ms}
               colors={{ line: '#7FE0B0', prev: '#6C7D74', grid: '#232B27', text: '#7D8A83', area: '#7FE0B0' }}
               names={[T('Виручка', 'Revenue'), T('Попередній', 'Previous')]} />
-          </section>
-          <section className="an-card an-wide">
+          </section>}
+          {show('charts') && <section className="an-card an-wide">
             <header><h2>{T('Витрати та прибуток', 'Costs and profit')}</h2>
               <div className="an-legend"><span><i style={{ background: '#E9A86B' }} />{T('Витрати', 'Costs')}</span><span><i style={{ background: '#7FE0B0' }} />{T('Прибуток', 'Profit')}</span></div>
             </header>
             <GroupBars labels={data.labels} a={cv(data.exp)} b={cv(data.prof)} fmt={Md} fmtAxis={Ms}
               colors={{ a: '#E9A86B', b: '#7FE0B0', grid: '#232B27', text: '#7D8A83' }} names={[T('Витрати', 'Costs'), T('Прибуток', 'Profit')]} />
-          </section>
-          <section className="an-card" ref={secs.services}>
+          </section>}
+          {show('services') && <section className="an-card">
             <header><h2>{T('Популярні послуги', 'Top services')}</h2><span className="an-mut">{T('за виручкою', 'by revenue')}</span></header>
             <ol className="an-svc">
               {data.svc.map((s, i) => (
@@ -210,8 +210,8 @@ export default function Analytics() {
                 </li>
               ))}
             </ol>
-          </section>
-          <section className="an-card an-orders" ref={secs.orders}>
+          </section>}
+          {show('orders') && <section className="an-card an-orders">
             <header><h2>{T('Останні замовлення', 'Latest orders')}</h2>
               <label className="an-search"><Icon n="search" s={14} /><input value={q} onChange={(e) => setQ(e.target.value)} placeholder={T('Клієнт, послуга, №', 'Client, service, #')} /></label>
             </header>
@@ -228,7 +228,8 @@ export default function Analytics() {
               ))}
               {!recent.length && <p className="an-empty">{T('Нічого не знайдено', 'Nothing found')}</p>}
             </div>
-          </section>
+            {view === 'overview' && <button type="button" className="an-more" onClick={() => { setView('orders'); top.current?.scrollIntoView({ behavior: 'smooth' }); }}>{T('Усі замовлення за період', 'All orders in period')} →</button>}
+          </section>}
         </div>
         <DemoNote className="an-note" />
       </div>

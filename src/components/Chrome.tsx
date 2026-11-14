@@ -3,6 +3,7 @@ import { Link, navigate, href, useRoute, Lang } from '../core/router';
 import { useT, LANG_KEY } from '../core/i18n';
 import { Logo } from './Logo';
 import { Icon } from './Icon';
+import { EmailMenu } from './EmailMenu';
 import { useLockBody, useDialog } from '../core/hooks';
 import site from '../config/site.json';
 import seo from '../i18n/seo.json';
@@ -100,7 +101,7 @@ export function Footer() {
           <Link to="legal/terms">{t.footer.terms}</Link>
           <Link to="legal/imprint">{t.footer.imprint}</Link>
         </div>
-        <ContactLinks className="ftr-col" />
+        <ContactLinks className="ftr-col" up />
       </div>
       <div className="ftr-base mono">
         <span>© {year} {site.studio.name}</span>
@@ -121,14 +122,16 @@ export function contactHrefs() {
   return out;
 }
 
-export function ContactLinks({ className = '' }: { className?: string }) {
+export function ContactLinks({ className = '', up = false }: { className?: string; up?: boolean }) {
   const { t } = useT();
   const list = contactHrefs();
   return (
     <div className={className}>
       <span className="mono muted">{t.contact.direct}</span>
       {list.length === 0 && <span className="muted small">{t.contact.noChannels}</span>}
-      {list.map((c) => (
+      {list.map((c) => c.k === 'email' ? (
+        <EmailMenu key={c.k} to={site.contacts.email} className="clink" up={up}><Icon n="mail" s={16} /> <span>{t.contact.channels.email}</span></EmailMenu>
+      ) : (
         <a key={c.k} href={c.href} target={c.k === 'telegram' || c.k === 'whatsapp' ? '_blank' : undefined} rel="noopener" className="clink">
           <Icon n={c.k} s={16} /> <span>{t.contact.channels[c.k]}</span>
         </a>

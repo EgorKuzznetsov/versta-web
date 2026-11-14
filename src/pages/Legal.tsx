@@ -29,9 +29,9 @@ export default function Legal() {
           <h2>3. Мета та правова підстава</h2>
           <p>Дані використовуються виключно для відповіді на ваш запит і підготовки пропозиції (ст. 6(1)(b) GDPR — дії до укладення договору; Закон України «Про захист персональних даних» — згода суб’єкта).</p>
           <h2>4. Сервіси третіх сторін</h2>
-          <p>Хостинг: Cloudflare Pages (Cloudflare, Inc.). Шрифти: Bunny Fonts. Сервіс відправки форми: <F v="" />. Перелічіть тут сервіси, які ви фактично підключили, зокрема аналітику.</p>
+          <p>Хостинг і обробка форми: Cloudflare Workers (Cloudflare, Inc.). IP-адреса використовується лише тимчасово для захисту форми від спаму й не зберігається на сайті. Доставка заявки: Telegram (Telegram Messenger Inc.) та email через Resend (Resend, Inc.) на скриньку Gmail (Google LLC). Шрифти: Bunny Fonts (BunnyWay d.o.o.). Аналітика й рекламні трекери не використовуються, cookies сайт не встановлює.</p>
           <h2>5. Строк зберігання</h2>
-          <p>Дані заявки зберігаються, доки це потрібно для комунікації щодо проєкту, але не довше <F v="" /> місяців, якщо не укладено договір.</p>
+          <p>Сайт не зберігає заявки у власній базі: вони одразу пересилаються нам у Telegram і на email. Там дані зберігаються, доки це потрібно для комунікації щодо проєкту, але не довше 6 місяців, якщо договір не укладено; після цього ми їх видаляємо. Якщо договір укладено, дані зберігаються на час його дії та в строки, передбачені законодавством. Ви можете попросити видалити свої дані раніше, написавши на {email}.</p>
           <h2>6. Ваші права</h2>
           <p>Ви маєте право на доступ, виправлення, видалення, обмеження обробки, перенесення даних і заперечення проти обробки, а також право подати скаргу до наглядового органу. Для цього напишіть на {email}.</p>
         </>
@@ -45,9 +45,9 @@ export default function Legal() {
           <h2>3. Purpose and legal basis</h2>
           <p>Data is used solely to respond to your enquiry and prepare a proposal (Art. 6(1)(b) GDPR — pre-contractual steps).</p>
           <h2>4. Third-party services</h2>
-          <p>Hosting: Cloudflare Pages (Cloudflare, Inc.). Fonts: Bunny Fonts. Form delivery service: <F v="" />. List every service you actually use here, including analytics.</p>
+          <p>Hosting and form processing: Cloudflare Workers (Cloudflare, Inc.). Your IP address is used only briefly to protect the form from spam and is not stored on the site. Enquiry delivery: Telegram (Telegram Messenger Inc.) and email via Resend (Resend, Inc.) to a Gmail inbox (Google LLC). Fonts: Bunny Fonts (BunnyWay d.o.o.). No analytics or advertising trackers are used, and the site sets no cookies.</p>
           <h2>5. Retention</h2>
-          <p>Enquiry data is kept as long as needed to communicate about the project, and no longer than <F v="" /> months if no contract is concluded.</p>
+          <p>The site does not keep enquiries in its own database: they are forwarded straight to us via Telegram and email. There, data is kept as long as needed to communicate about the project, and no longer than 6 months if no contract is concluded; after that we delete it. If a contract is concluded, data is kept for its duration and for the periods required by law. You can ask us to delete your data earlier at {email}.</p>
           <h2>6. Your rights</h2>
           <p>You have the right to access, rectify, erase, restrict, port and object to processing, and to lodge a complaint with a supervisory authority. Contact {email}.</p>
         </>

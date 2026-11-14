@@ -58,11 +58,11 @@ ul, ol { padding: 0; list-style: none; }
 .g12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gut); }
 
 /* Typography scale */
-.d1 { font-size: clamp(42px, 7.6vw, 140px); line-height: 0.9; letter-spacing: -0.05em; font-weight: 600; }
-.d2 { font-size: clamp(36px, 5.4vw, 92px); line-height: 0.94; letter-spacing: -0.045em; font-weight: 600; }
-.d3 { font-size: clamp(26px, 3vw, 46px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 550; }
-.d4 { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 500; }
-.lead { font-size: clamp(17px, 1.35vw, 21px); line-height: 1.45; letter-spacing: -0.01em; color: var(--graphite); max-width: 38em; }
+.d1 { font-size: clamp(36px, 5.4vw, 96px); line-height: 0.9; letter-spacing: -0.05em; font-weight: 600; }
+.d2 { font-size: clamp(30px, 4vw, 66px); line-height: 0.94; letter-spacing: -0.045em; font-weight: 600; }
+.d3 { font-size: clamp(23px, 2.4vw, 36px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 550; }
+.d4 { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 500; }
+.lead { font-size: clamp(16px, 1.2vw, 19px); line-height: 1.45; letter-spacing: -0.01em; color: var(--graphite); max-width: 38em; }
 .kicker { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
 .kicker::before { content: ''; width: 8px; height: 8px; background: var(--accent); }
 

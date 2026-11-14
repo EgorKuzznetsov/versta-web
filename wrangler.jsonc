@@ -6,6 +6,8 @@
   "main": "./worker/index.js",
   // public address versta-web.egor-andreevich2017.workers.dev (set false once a custom domain is attached, if you want)
   "workers_dev": true,
+  // keep variables added in the Cloudflare dashboard when deploying from Git
+  "keep_vars": true,
   "assets": {
     "directory": "./dist/",
     "binding": "ASSETS",

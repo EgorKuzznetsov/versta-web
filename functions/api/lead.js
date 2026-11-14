@@ -43,10 +43,10 @@ export async function onRequestPost({ request, env }) {
 
   const jobs = [];
   if (tgOn) {
-    jobs.push(fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    jobs.push(fetch(`https://api.telegram.org/bot${String(env.TELEGRAM_BOT_TOKEN).trim()}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text, disable_web_page_preview: true }),
+      body: JSON.stringify({ chat_id: String(env.TELEGRAM_CHAT_ID).trim(), text, disable_web_page_preview: true }),
     }).then(async (r) => { if (!r.ok) console.log('lead: telegram failed', r.status, (await r.text()).slice(0, 300)); return r.ok; }));
   }
   if (mailOn) {
@@ -77,6 +77,10 @@ export function leadStatus(env) {
   const mask = (e) => (e ? e.replace(/^(.).*(@.*)$/, '$1***$2') : null);
   return new Response(JSON.stringify({
     telegram: !!(env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID),
+    telegram_token_present: !!env.TELEGRAM_BOT_TOKEN,
+    telegram_token_format_ok: !!env.TELEGRAM_BOT_TOKEN && /^\d+:[\w-]{30,}$/.test(env.TELEGRAM_BOT_TOKEN.trim()),
+    telegram_chat_id_present: !!env.TELEGRAM_CHAT_ID,
+    telegram_chat_id_format_ok: !!env.TELEGRAM_CHAT_ID && /^-?\d+$/.test(env.TELEGRAM_CHAT_ID.trim()),
     email: !!(env.RESEND_API_KEY && env.LEAD_EMAIL_TO),
     resend_key_present: !!env.RESEND_API_KEY,
     resend_key_format_ok: !!env.RESEND_API_KEY && /^re_/.test(env.RESEND_API_KEY.trim()),

@@ -1,0 +1,34 @@
+{
+  "_comment": "Головний файл даних студії. Заповніть порожні поля своїми реальними даними. Порожні контакти автоматично ховаються на сайті.",
+  "studio": {
+    "name": "Versta",
+    "legalName": "",
+    "founded": "2026"
+  },
+  "domain": "https://example.com",
+  "routing": "path",
+  "location": {
+    "uk": "Берлін — працюємо з Україною та ЄС",
+    "en": "Berlin — working with Ukraine and the EU"
+  },
+  "contacts": {
+    "telegram": "versta_manager",
+    "whatsapp": "",
+    "email": "versta.web.designs@gmail.com",
+    "phone": ""
+  },
+  "form": {
+    "_comment": "endpoint: порожньо = форма не підключена (сайт чесно про це повідомить). '/api/lead' = вбудована функція Cloudflare Pages (див. README). Або URL Formspree/Web3Forms тощо.",
+    "endpoint": "/api/lead",
+    "extraFields": {}
+  },
+  "legal": {
+    "ownerName": "",
+    "legalForm": "",
+    "address": "",
+    "taxId": "",
+    "email": "",
+    "phone": "",
+    "lastUpdated": "2026-11-14"
+  }
+}

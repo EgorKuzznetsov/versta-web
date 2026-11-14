@@ -1,0 +1,173 @@
+{
+  "brandSuffix": " — Versta",
+  "pages": {
+    "": {
+      "uk": {
+        "title": "Versta — веб-студія: сайти, онлайн-запис, магазини та CRM",
+        "description": "Проєктуємо й розробляємо сайти для малого та середнього бізнесу: лендинги, корпоративні сайти, інтернет-магазини, онлайн-запис, аналітика. Спробуйте робочі демо."
+      },
+      "en": {
+        "title": "Versta — web studio: websites, booking, e-commerce and CRM",
+        "description": "We design and build websites for small and mid-sized businesses: landing pages, company sites, online stores, booking systems and dashboards. Try the working demos."
+      }
+    },
+    "services": {
+      "uk": {
+        "title": "Послуги — лендинги, магазини, онлайн-запис, веб-застосунки",
+        "description": "Дев’ять напрямків роботи простою мовою: що отримує ваш бізнес, для кого це і скільки орієнтовно коштує."
+      },
+      "en": {
+        "title": "Services — landing pages, stores, booking, web apps",
+        "description": "Nine services in plain language: what your business gets, who it is for and what it roughly costs."
+      }
+    },
+    "lab": {
+      "uk": {
+        "title": "Demo Lab — протестуйте робочі веб-продукти",
+        "description": "Шість інтерактивних демо: аналітика, онлайн-запис, меню ресторану, CRM, інтернет-магазин і платформа нерухомості. Усі дані демонстраційні."
+      },
+      "en": {
+        "title": "Demo Lab — try working web products",
+        "description": "Six interactive demos: analytics, online booking, restaurant menu, CRM, online store and real estate platform. All data is for demonstration."
+      }
+    },
+    "lab/analytics": {
+      "uk": {
+        "title": "Демо: панель аналітики бізнесу",
+        "description": "Виручка, клієнти, середній чек, витрати й прибуток з фільтром дат і експортом у CSV. Демонстраційні дані."
+      },
+      "en": {
+        "title": "Demo: business analytics dashboard",
+        "description": "Revenue, clients, average order, costs and profit with date filters and CSV export. Demo data."
+      }
+    },
+    "lab/booking": {
+      "uk": {
+        "title": "Демо: онлайн-запис для барбершопу",
+        "description": "Вибір послуги, майстра, дати й часу, підтвердження, перенесення та панель адміністратора. Демонстраційні дані."
+      },
+      "en": {
+        "title": "Demo: online booking for a barbershop",
+        "description": "Choose a service, specialist, date and time, confirm, reschedule, plus an admin calendar. Demo data."
+      }
+    },
+    "lab/menu": {
+      "uk": {
+        "title": "Демо: цифрове меню ресторану",
+        "description": "Категорії, пошук, фільтри, добавки, кошик і відстеження замовлення. Створено для смартфона."
+      },
+      "en": {
+        "title": "Demo: restaurant digital menu",
+        "description": "Categories, search, filters, add-ons, cart and order tracking. Built for smartphones."
+      }
+    },
+    "lab/crm": {
+      "uk": {
+        "title": "Демо: CRM-система",
+        "description": "База клієнтів, канбан-дошка з перетягуванням, потенційна виручка, задачі й нагадування."
+      },
+      "en": {
+        "title": "Demo: CRM system",
+        "description": "Client base, drag-and-drop kanban, pipeline value, tasks and reminders."
+      }
+    },
+    "lab/store": {
+      "uk": {
+        "title": "Демо: преміальний інтернет-магазин",
+        "description": "Каталог, фільтри, сторінки товарів, розміри й кольори, обране, кошик, промокоди та оформлення."
+      },
+      "en": {
+        "title": "Demo: premium online store",
+        "description": "Catalog, filters, product pages, sizes and colors, favorites, cart, promo codes and checkout."
+      }
+    },
+    "lab/estate": {
+      "uk": {
+        "title": "Демо: платформа нерухомості",
+        "description": "Каталог квартир із фільтрами, галерея, порівняння, обране, іпотечний калькулятор і запис на перегляд."
+      },
+      "en": {
+        "title": "Demo: real estate platform",
+        "description": "Apartment catalog with filters, gallery, comparison, favorites, mortgage calculator and viewing requests."
+      }
+    },
+    "calculator": {
+      "uk": {
+        "title": "Калькулятор вартості сайту",
+        "description": "Порахуйте орієнтовну вартість і терміни розробки сайту за хвилину."
+      },
+      "en": {
+        "title": "Website cost calculator",
+        "description": "Estimate the cost and timeline of your website in a minute."
+      }
+    },
+    "pricing": {
+      "uk": {
+        "title": "Ціни на розробку сайтів і тарифи обслуговування",
+        "description": "Ціни на розробку — від лендингу до індивідуального веб-застосунку — і три тарифи технічного обслуговування сайту."
+      },
+      "en": {
+        "title": "Website pricing and maintenance plans",
+        "description": "Development prices — from a landing page to a custom web application — and three website maintenance plans."
+      }
+    },
+    "work": {
+      "uk": {
+        "title": "Роботи — концептуальні проєкти студії",
+        "description": "Концептуальні проєкти з чесним маркуванням Concept: задача, дизайн, функціональність, мобільна версія й технології."
+      },
+      "en": {
+        "title": "Work — studio concept projects",
+        "description": "Concept projects, honestly labelled: the brief, design, features, mobile version and tech stack."
+      }
+    },
+    "contact": {
+      "uk": {
+        "title": "Обговорити проєкт",
+        "description": "Розкажіть про свій бізнес — відповімо з орієнтовною оцінкою вартості та термінів."
+      },
+      "en": {
+        "title": "Discuss a project",
+        "description": "Tell us about your business and we will reply with a rough estimate of cost and timeline."
+      }
+    },
+    "legal/privacy": {
+      "uk": {
+        "title": "Політика конфіденційності",
+        "description": "Як ми обробляємо персональні дані."
+      },
+      "en": {
+        "title": "Privacy policy",
+        "description": "How we process personal data."
+      }
+    },
+    "legal/terms": {
+      "uk": {
+        "title": "Умови використання",
+        "description": "Умови використання сайту."
+      },
+      "en": {
+        "title": "Terms of use",
+        "description": "Terms of use of this website."
+      }
+    },
+    "legal/imprint": {
+      "uk": {
+        "title": "Вихідні дані (Impressum)",
+        "description": "Відомості про власника сайту."
+      },
+      "en": {
+        "title": "Imprint (Impressum)",
+        "description": "Information about the site owner."
+      }
+    }
+  },
+  "caseSlugs": [
+    "analytics",
+    "booking",
+    "menu",
+    "crm",
+    "store",
+    "estate"
+  ]
+}

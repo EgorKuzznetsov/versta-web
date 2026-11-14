@@ -47,7 +47,7 @@ export async function onRequestPost({ request, env }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text, disable_web_page_preview: true }),
-    }).then((r) => r.ok));
+    }).then(async (r) => { if (!r.ok) console.log('lead: telegram failed', r.status, (await r.text()).slice(0, 300)); return r.ok; }));
   }
   if (mailOn) {
     const html = `<h2 style="font-family:sans-serif">Нова заявка з сайту</h2><table style="font-family:sans-serif;border-collapse:collapse">${rows
@@ -65,11 +65,23 @@ export async function onRequestPost({ request, env }) {
         html,
         ...(replyTo ? { reply_to: replyTo } : {}),
       }),
-    }).then((r) => r.ok));
+    }).then(async (r) => { if (!r.ok) console.log('lead: email (Resend) failed', r.status, (await r.text()).slice(0, 300)); return r.ok; }));
   }
 
-  const results = await Promise.all(jobs.map((p) => p.catch(() => false)));
+  const results = await Promise.all(jobs.map((p) => p.catch((e) => { console.log('lead: request error', String(e)); return false; })));
   return results.some(Boolean) ? json({ ok: true }) : json({ ok: false, error: 'delivery_failed' }, 502);
+}
+
+/** GET /api/lead/status — shows which channels are configured (never the values) */
+export function leadStatus(env) {
+  const mask = (e) => (e ? e.replace(/^(.).*(@.*)$/, '$1***$2') : null);
+  return new Response(JSON.stringify({
+    telegram: !!(env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID),
+    email: !!(env.RESEND_API_KEY && env.LEAD_EMAIL_TO),
+    resend_key_present: !!env.RESEND_API_KEY,
+    resend_key_format_ok: !!env.RESEND_API_KEY && /^re_/.test(env.RESEND_API_KEY.trim()),
+    email_to: mask(env.LEAD_EMAIL_TO),
+  }, null, 2), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 }
 
 export const onRequest = () => new Response('Method Not Allowed', { status: 405, headers: { Allow: 'POST' } });

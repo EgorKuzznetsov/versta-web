@@ -150,16 +150,6 @@
         "title": "Terms of use",
         "description": "Terms of use of this website."
       }
-    },
-    "legal/imprint": {
-      "uk": {
-        "title": "Вихідні дані (Impressum)",
-        "description": "Відомості про власника сайту."
-      },
-      "en": {
-        "title": "Imprint (Impressum)",
-        "description": "Information about the site owner."
-      }
     }
   },
   "caseSlugs": [

@@ -338,7 +338,6 @@ const en: Dict = {
     legal: 'Legal',
     privacy: 'Privacy',
     terms: 'Terms of use',
-    imprint: 'Imprint',
     rights: 'All demo projects on this site are studio concepts.',
     top: 'Back to top',
   },

@@ -84,31 +84,6 @@ export default function Legal() {
         </>
       ),
     },
-    imprint: {
-      title: t.footer.imprint,
-      uk: (
-        <>
-          <p>Якщо ви ведете діяльність із Німеччини, вихідні дані (Impressum) обов’язкові згідно з § 5 DDG.</p>
-          <h2>Відомості згідно з § 5 DDG</h2>
-          <p>{owner}<br /><F v={l.legalForm} /><br /><F v={l.address} /></p>
-          <h2>Контакт</h2>
-          <p>Email: {email}<br />Телефон: <F v={l.phone || site.contacts.phone} /></p>
-          <h2>Податковий номер / USt-IdNr.</h2>
-          <p><F v={l.taxId} /></p>
-        </>
-      ),
-      en: (
-        <>
-          <p>If you operate from Germany, an imprint is mandatory under § 5 DDG.</p>
-          <h2>Information pursuant to § 5 DDG</h2>
-          <p>{owner}<br /><F v={l.legalForm} /><br /><F v={l.address} /></p>
-          <h2>Contact</h2>
-          <p>Email: {email}<br />Phone: <F v={l.phone || site.contacts.phone} /></p>
-          <h2>Tax / VAT ID</h2>
-          <p><F v={l.taxId} /></p>
-        </>
-      ),
-    },
   };
   const d = docs[doc];
   if (!d) return <NotFound />;

@@ -99,7 +99,6 @@ export function Footer() {
           <span className="mono muted">{t.footer.legal}</span>
           <Link to="legal/privacy">{t.footer.privacy}</Link>
           <Link to="legal/terms">{t.footer.terms}</Link>
-          <Link to="legal/imprint">{t.footer.imprint}</Link>
         </div>
         <ContactLinks className="ftr-col" up />
       </div>

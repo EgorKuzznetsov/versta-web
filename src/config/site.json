@@ -8,8 +8,8 @@
   "domain": "https://verstaweb.com",
   "routing": "path",
   "location": {
-    "uk": "Берлін — працюємо з Україною та ЄС",
-    "en": "Berlin — working with Ukraine and the EU"
+    "uk": "Працюємо з Україною та ЄС.\nВідключення світла нам не заважають.",
+    "en": "Working with Ukraine and the EU.\nPower outages don’t stop us."
   },
   "contacts": {
     "telegram": "versta_manager",

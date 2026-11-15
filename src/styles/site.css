@@ -679,3 +679,9 @@ button.clink { font: inherit; color: inherit; text-align: left; }
 .mnav-call .mono { font-weight: 400; }
 .hdr-nav a { white-space: nowrap; }
 .pfail { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 20px; }
+.ftr-plain { max-width: var(--max); margin: clamp(40px, 5vw, 72px) auto 0; padding: 0 var(--gut); display: flex; flex-wrap: wrap; gap: 8px clamp(24px, 4vw, 56px); font-size: clamp(20px, 2.2vw, 32px); font-weight: 550; letter-spacing: -0.03em; }
+.ftr-plain a { border-bottom: 1px solid rgba(248, 246, 240, 0.25); transition: border-color 0.25s, color 0.25s; }
+.ftr-plain a:hover { color: var(--accent); border-color: var(--accent); }
+.ftr-plain + .ftr-base { margin-top: clamp(28px, 4vw, 48px); }
+.loc { white-space: pre-line; line-height: 1.6; }
+.ftr-brand .loc { max-width: 44ch; }

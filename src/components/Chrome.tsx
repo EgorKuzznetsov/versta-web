@@ -85,7 +85,7 @@ export function Header() {
             <Icon n="phone" s={18} /><span>{t.nav.call}</span><span className="mono">{site.contacts.phone}</span>
           </a>
         )}
-        <div className="mnav-foot mono">{site.location[r.lang]}</div>
+        <div className="mnav-foot mono loc">{site.location[r.lang]}</div>
       </div>
     </>
   );
@@ -100,7 +100,7 @@ export function Footer() {
         <div className="ftr-brand">
           <Logo />
           <p>{t.footer.note}</p>
-          <p className="mono muted">{site.location[lang]}</p>
+          <p className="mono muted loc">{site.location[lang]}</p>
         </div>
         <nav className="ftr-col" aria-label="Footer">
           {NAV.map(([p, k]) => <Link key={p} to={p}>{t.nav[k]}</Link>)}
@@ -112,6 +112,12 @@ export function Footer() {
         </div>
         <ContactLinks className="ftr-col" up />
       </div>
+      {(site.contacts.email || site.contacts.phone) && (
+        <div className="ftr-plain">
+          {site.contacts.email && <a href={'mailto:' + site.contacts.email}>{site.contacts.email}</a>}
+          {site.contacts.phone && <a href={'tel:' + site.contacts.phone.replace(/[^\d+]/g, '')}>{site.contacts.phone}</a>}
+        </div>
+      )}
       <div className="ftr-base mono">
         <span>© {year} {site.studio.name}</span>
         <span>{t.footer.rights}</span>

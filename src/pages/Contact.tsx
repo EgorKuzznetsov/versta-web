@@ -110,7 +110,7 @@ export default function Contact() {
         <div className="wrap g12">
           <aside className="contact-side">
             <ContactLinks className="contact-links" />
-            <p className="mono muted">{site.location[lang]}</p>
+            <p className="mono muted loc">{site.location[lang]}</p>
           </aside>
           {status === 'ok' ? (
             <div className="form-ok" role="status">

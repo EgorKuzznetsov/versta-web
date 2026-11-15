@@ -15,7 +15,7 @@
     "telegram": "versta_manager",
     "whatsapp": "",
     "email": "versta.web.designs@gmail.com",
-    "phone": ""
+    "phone": "+380 98 929 23 72"
   },
   "form": {
     "_comment": "endpoint: '/api/lead' = вбудований обробник (Cloudflare Worker). turnstileSiteKey: публічний ключ Cloudflare Turnstile (захист від ботів); секретний ключ — TURNSTILE_SECRET у Cloudflare. Порожньо = Turnstile вимкнено.",
@@ -24,12 +24,21 @@
     "turnstileSiteKey": ""
   },
   "legal": {
-    "ownerName": "",
-    "legalForm": "",
-    "address": "",
+    "ownerName": {
+      "uk": "Кузнєцов Андрій Володимирович",
+      "en": "Andrii Kuznietsov"
+    },
+    "legalForm": {
+      "uk": "ФОП",
+      "en": "sole proprietor (FOP, Ukraine)"
+    },
+    "address": {
+      "uk": "вул. Миколи Василенка, 25",
+      "en": "25 Mykoly Vasylenka St"
+    },
     "taxId": "",
     "email": "",
-    "phone": "",
+    "phone": "+380 98 929 23 72",
     "lastUpdated": "2026-11-15"
   }
 }

@@ -12,6 +12,7 @@ const en: Dict = {
     menu: 'Menu',
     close: 'Close',
     skip: 'Skip to content',
+    call: 'Call us',
     langLabel: 'Site language',
   },
   common: {
@@ -285,7 +286,7 @@ const en: Dict = {
     copyText: 'Copy request text',
     required: 'Please fill in the required fields',
     direct: 'Directly',
-    channels: { telegram: 'Telegram', whatsapp: 'WhatsApp', email: 'Email', phone: 'Phone' },
+    channels: { telegram: 'Telegram', whatsapp: 'WhatsApp', email: 'Email', phone: 'Call us' },
     noChannels: 'Contacts have not been added yet. Site owner: fill in src/config/site.json.',
     fromCalc: 'Your calculator estimate was added to the description.',
   },

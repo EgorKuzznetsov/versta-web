@@ -10,6 +10,7 @@ const uk = {
     menu: 'Меню',
     close: 'Закрити',
     skip: 'Перейти до змісту',
+    call: 'Зателефонувати',
     langLabel: 'Мова сайту',
   },
   common: {
@@ -283,7 +284,7 @@ const uk = {
     copyText: 'Скопіювати текст заявки',
     required: 'Заповніть обов’язкові поля',
     direct: 'Напряму',
-    channels: { telegram: 'Telegram', whatsapp: 'WhatsApp', email: 'Email', phone: 'Телефон' },
+    channels: { telegram: 'Telegram', whatsapp: 'WhatsApp', email: 'Email', phone: 'Зателефонувати' },
     noChannels: 'Контакти ще не додані. Власнику сайту: заповніть src/config/site.json.',
     fromCalc: 'Розрахунок із калькулятора додано до опису.',
   },

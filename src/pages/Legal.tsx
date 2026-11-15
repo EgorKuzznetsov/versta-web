@@ -15,7 +15,8 @@ export default function Legal() {
   const r = useRoute();
   const doc = r.segs[1];
   const l = site.legal;
-  const owner = <F v={l.ownerName} />;
+  const B = (v: unknown) => (typeof v === 'string' ? v : (v as Record<string, string> | undefined)?.[lang] || '');
+  const owner = <F v={B(l.ownerName)} />;
   const email = <F v={l.email || site.contacts.email} />;
   const docs: Record<string, { uk: React.ReactNode; en: React.ReactNode; title: string }> = {
     privacy: {
@@ -23,7 +24,7 @@ export default function Legal() {
       uk: (
         <>
           <h2>1. Хто відповідає за дані</h2>
-          <p>Відповідальна особа: {owner}, {<F v={l.legalForm} />}, адреса: {<F v={l.address} />}, email: {email}.</p>
+          <p>Відповідальна особа: {owner}, {<F v={B(l.legalForm)} />}, адреса: {<F v={B(l.address)} />}, телефон: <a href={'tel:' + l.phone.replace(/[^\d+]/g, '')}>{l.phone}</a>, email: {email}.</p>
           <h2>2. Які дані ми обробляємо</h2>
           <p>Лише ті, які ви самі залишаєте у формі заявки: ім’я, назву бізнесу, контакт для зв’язку та опис проєкту. Демо в розділі Demo Lab не передають жодних даних — усе, що ви вводите там, зберігається тільки у вашому браузері (localStorage) і може бути видалене кнопкою «Скинути демо» або очищенням даних браузера.</p>
           <h2>3. Мета та правова підстава</h2>
@@ -39,7 +40,7 @@ export default function Legal() {
       en: (
         <>
           <h2>1. Controller</h2>
-          <p>Responsible person: {owner}, {<F v={l.legalForm} />}, address: {<F v={l.address} />}, email: {email}.</p>
+          <p>Responsible person: {owner}, {<F v={B(l.legalForm)} />}, address: {<F v={B(l.address)} />}, phone: <a href={'tel:' + l.phone.replace(/[^\d+]/g, '')}>{l.phone}</a>, email: {email}.</p>
           <h2>2. What data we process</h2>
           <p>Only what you provide in the enquiry form: your name, business name, contact details and project description. The Demo Lab demos transmit no data — anything you enter there is stored only in your browser (localStorage) and can be deleted with “Reset demo” or by clearing your browser data.</p>
           <h2>3. Purpose and legal basis</h2>

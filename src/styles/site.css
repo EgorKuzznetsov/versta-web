@@ -669,3 +669,12 @@ button.clink { font: inherit; color: inherit; text-align: left; }
 .em-addr { padding: 8px 12px 6px; border-top: 1px solid var(--line); margin-top: 4px; font-family: var(--mono); font-size: 11px; color: var(--mid); }
 .ts-box:empty { display: none; }
 .ts-box { min-height: 0; }
+
+/* call button */
+.hdr-call { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border: 1px solid var(--ink); font-size: 13px; font-weight: 500; white-space: nowrap; transition: background 0.25s var(--ease), color 0.25s; }
+.hdr-call:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 1240px) { .hdr-call { width: 32px; padding: 0; justify-content: center; } .hdr-call span { display: none; } }
+.mnav-call { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin: 24px 0 16px; padding: 14px 18px; background: var(--accent); color: var(--ink); font-size: 17px; font-weight: 600; opacity: 0; transition: opacity 0.5s var(--ease) 0.5s; }
+.mnav.open .mnav-call { opacity: 1; }
+.mnav-call .mono { font-weight: 400; }
+.hdr-nav a { white-space: nowrap; }

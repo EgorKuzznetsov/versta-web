@@ -59,6 +59,11 @@ export function Header() {
             ))}
           </nav>
           <div className="hdr-right">
+            {site.contacts.phone && (
+              <a className="hdr-call" href={'tel:' + site.contacts.phone.replace(/[^\d+]/g, '')} aria-label={t.nav.call + ' ' + site.contacts.phone}>
+                <Icon n="phone" s={16} /><span>{t.nav.call}</span>
+              </a>
+            )}
             <LangSwitch />
             <button className="hdr-burger" type="button" aria-expanded={open} aria-controls="mnav" onClick={() => setOpen(!open)}>
               <span className="mono">{open ? t.nav.close : t.nav.menu}</span>
@@ -75,6 +80,11 @@ export function Header() {
             </Link>
           ))}
         </nav>
+        {site.contacts.phone && (
+          <a className="mnav-call" tabIndex={open ? 0 : -1} href={'tel:' + site.contacts.phone.replace(/[^\d+]/g, '')}>
+            <Icon n="phone" s={18} /><span>{t.nav.call}</span><span className="mono">{site.contacts.phone}</span>
+          </a>
+        )}
         <div className="mnav-foot mono">{site.location[r.lang]}</div>
       </div>
     </>

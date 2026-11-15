@@ -8,6 +8,8 @@
   "workers_dev": true,
   // keep variables added in the Cloudflare dashboard when deploying from Git
   "keep_vars": true,
+  // custom domain: Cloudflare creates the DNS record and the HTTPS certificate automatically
+  "routes": [{ "pattern": "verstaweb.com", "custom_domain": true }],
   "assets": {
     "directory": "./dist/",
     "binding": "ASSETS",

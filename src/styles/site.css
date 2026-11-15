@@ -678,3 +678,4 @@ button.clink { font: inherit; color: inherit; text-align: left; }
 .mnav.open .mnav-call { opacity: 1; }
 .mnav-call .mono { font-weight: 400; }
 .hdr-nav a { white-space: nowrap; }
+.pfail { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 20px; }

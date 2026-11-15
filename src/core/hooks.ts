@@ -30,11 +30,20 @@ export function useReveal<T extends HTMLElement>(opts: { threshold?: number } = 
     const el = ref.current;
     if (!el) return;
     if (!('IntersectionObserver' in window)) { el.classList.add('in'); return; }
+    // reveal once any part of the element is well inside the viewport; tall blocks (taller than the screen)
+    // could never reach a ratio threshold, so we test the visible height instead
+    const need = opts.threshold ?? 0.15;
     const io = new IntersectionObserver((es) => {
-      es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: opts.threshold ?? 0.15, rootMargin: '0px 0px -8% 0px' });
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const vis = e.intersectionRect.height;
+        if (e.intersectionRatio >= need || vis >= window.innerHeight * 0.25) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: [0, 0.05, 0.1, need, 0.25, 0.5], rootMargin: '0px 0px -8% 0px' });
     io.observe(el);
-    return () => io.disconnect();
+    // safety net: anything already above the fold after navigation is shown even if the observer misses it
+    const t = setTimeout(() => { const b = el.getBoundingClientRect(); if (b.top < window.innerHeight) el.classList.add('in'); }, 1200);
+    return () => { io.disconnect(); clearTimeout(t); };
   }, []);
   return ref;
 }

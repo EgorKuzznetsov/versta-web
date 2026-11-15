@@ -1,3 +1,4 @@
+import { reloadOnce } from './core/lazy';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -15,5 +16,8 @@ try {
   if (saved === 'en' && r.lang === 'uk' && !sessionStorage.getItem('versta.langChecked')) navigate(href(r.path, 'en'), { replace: true, keepScroll: true });
   sessionStorage.setItem('versta.langChecked', '1');
 } catch { /* storage unavailable */ }
+
+// a module preload failed (stale chunk after a deploy) → reload once instead of a blank page
+window.addEventListener('vite:preloadError', (e) => { if (reloadOnce()) e.preventDefault(); });
 
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);

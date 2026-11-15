@@ -96,7 +96,6 @@ export default function Legal() {
         <div className="legal-c">
           <h1 className="d2">{d.title}</h1>
           <p className="mono muted">{t.legal.updated}: {l.lastUpdated}</p>
-          <p className="legal-note">{t.legal.templateNote}</p>
           <div className="prose">{d[lang]}</div>
         </div>
       </div>

@@ -1,18 +1,20 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
+import { lazyRetry } from './core/lazy';
 import { useRoute } from './core/router';
 import { LangProvider } from './core/i18n';
 import { Header, Footer } from './components/Chrome';
+import { Boundary } from './components/Boundary';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 
-const Services = lazy(() => import('./pages/Services'));
-const Lab = lazy(() => import('./pages/Lab'));
-const Work = lazy(() => import('./pages/Work'));
-const Calculator = lazy(() => import('./pages/Calculator'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Pricing = lazy(() => import('./pages/Pricing'));
-const Legal = lazy(() => import('./pages/Legal'));
-const DemoPage = lazy(() => import('./pages/DemoPage'));
+const Services = lazyRetry(() => import('./pages/Services'));
+const Lab = lazyRetry(() => import('./pages/Lab'));
+const Work = lazyRetry(() => import('./pages/Work'));
+const Calculator = lazyRetry(() => import('./pages/Calculator'));
+const Contact = lazyRetry(() => import('./pages/Contact'));
+const Pricing = lazyRetry(() => import('./pages/Pricing'));
+const Legal = lazyRetry(() => import('./pages/Legal'));
+const DemoPage = lazyRetry(() => import('./pages/DemoPage'));
 
 function Page() {
   const r = useRoute();
@@ -37,12 +39,12 @@ export default function App() {
   return (
     <LangProvider lang={r.lang}>
       {isDemo ? (
-        <Suspense fallback={null}><DemoPage id={r.segs[1]} /></Suspense>
+        <Boundary resetKey={r.path}><Suspense fallback={null}><DemoPage id={r.segs[1]} /></Suspense></Boundary>
       ) : (
         <>
           <Header />
           <main id="main" className="main">
-            <Suspense fallback={<div className="pload" />}><Page /></Suspense>
+            <Boundary resetKey={r.path}><Suspense fallback={<div className="pload" />}><Page /></Suspense></Boundary>
           </main>
           <Footer />
         </>

@@ -1,4 +1,5 @@
-import React, { Suspense, lazy, useState } from 'react';
+import React, { Suspense, useState } from 'react';
+import { lazyRetry } from '../core/lazy';
 import { useT } from '../core/i18n';
 import { Link } from '../core/router';
 import { Icon } from '../components/Icon';
@@ -8,12 +9,12 @@ import { clearStore } from '../core/hooks';
 import NotFound from './NotFound';
 
 const MAP: Record<DemoId, React.LazyExoticComponent<React.ComponentType>> = {
-  analytics: lazy(() => import('../demos/Analytics')),
-  booking: lazy(() => import('../demos/Booking')),
-  menu: lazy(() => import('../demos/Menu')),
-  crm: lazy(() => import('../demos/Crm')),
-  store: lazy(() => import('../demos/Store')),
-  estate: lazy(() => import('../demos/Estate')),
+  analytics: lazyRetry(() => import('../demos/Analytics')),
+  booking: lazyRetry(() => import('../demos/Booking')),
+  menu: lazyRetry(() => import('../demos/Menu')),
+  crm: lazyRetry(() => import('../demos/Crm')),
+  store: lazyRetry(() => import('../demos/Store')),
+  estate: lazyRetry(() => import('../demos/Estate')),
 };
 
 export default function DemoPage({ id }: { id: string }) {

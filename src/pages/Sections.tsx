@@ -156,7 +156,7 @@ export function ProcessRuler() {
           if (e.key === 'ArrowLeft') setA((v) => Math.max(0, v - 1));
         }}>
         <div className="pr-ticks" aria-hidden="true" />
-        <div className="pr-marker" style={{ transform: `translateX(${(a / steps.length) * 100}%)`, width: `${100 / steps.length}%` }} aria-hidden="true"><span /></div>
+        <div className="pr-marker" style={{ transform: `translateX(${a * 100}%)`, width: `${100 / steps.length}%` }} aria-hidden="true"><span /></div>
         {steps.map((st, i) => (
           <button key={st.n} type="button" role="tab" aria-selected={a === i} tabIndex={a === i ? 0 : -1}
             className={cx('pr-step', a === i && 'on', i < a && 'done')} onClick={() => setA(i)} onPointerEnter={() => setA(i)}>

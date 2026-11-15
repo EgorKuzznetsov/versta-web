@@ -66,7 +66,7 @@ export default function Calculator() {
     } catch { /* noop */ }
   }, []);
 
-  const lineLabel = (k: string) => k.startsWith('f.') ? t.calc.f[k.slice(2) as Feat] : k === 'anim' ? `${t.calc.animations}: ${t.calc.anim[s.anim]}` : (t.calc.lines as any)[k] + (k === 'base' ? ` — ${L(item.name)}` : '');
+  const lineLabel = (k: string) => k.startsWith('f.') ? t.calc.f[k.slice(2) as Feat] : k === 'anim' ? `${t.calc.animations}: ${t.calc.anim[s.anim]}` : (t.calc.lines as any)[k] + (k === 'base' ? ` - ${L(item.name)}` : '');
   const weeks = Math.max(1, Math.round(res.days / 5));
   const from = t.common.from;
 
@@ -83,7 +83,7 @@ export default function Calculator() {
     promo && res.savings ? `  ${t.calc.savings}: ${C(res.savings)}` : '',
     `  ${t.calc.timeline}: ~${res.days} ${t.common.days}`,
     '',
-    `${t.calc.maintTitle}: ${res.monthly ? `${planName} — ${C(res.monthly)} ${t.plans.perMonth} (${C(res.yearly)} ${t.calc.perYear})` : t.calc.maintNo}`,
+    `${t.calc.maintTitle}: ${res.monthly ? `${planName} - ${C(res.monthly)} ${t.plans.perMonth} (${C(res.yearly)} ${t.calc.perYear})` : t.calc.maintNo}`,
     '',
     t.promo.note,
   ].filter((x, i, a) => x !== '' || (a[i - 1] !== '' && i > 0)).join('\n');
@@ -177,7 +177,7 @@ export default function Calculator() {
                   <label key={o.id} className={cx('cf-plan', s.maint === o.id && 'on')}>
                     <input type="radio" name="maint" checked={s.maint === o.id} onChange={() => up({ maint: o.id })} />
                     <span className={cx('cf-plan-n', o.id !== 'none' && 'mono')}>{o.name}</span>
-                    <span className="small muted">{o.id === 'none' ? '—' : `${fmt(p.maintenance[o.id as PlanId], lang)} ${t.plans.perMonth}`}</span>
+                    <span className="small muted">{o.id === 'none' ? '-' : `${fmt(p.maintenance[o.id as PlanId], lang)} ${t.plans.perMonth}`}</span>
                     {o.best && <span className="cf-plan-b mono">{t.plans.bestShort}</span>}
                   </label>
                 ))}

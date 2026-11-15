@@ -135,7 +135,7 @@ export function Plans() {
                   {row.v.map((v, k) => (
                     <td key={k} className={cx(PLANS[k].best && 'best')}>
                       {v === true ? <><Icon n="check" s={18} /><span className="sr">{t.plans.yes}</span></>
-                        : v === false ? <><span className="pl-dash" aria-hidden="true">—</span><span className="sr">{t.plans.no}</span></>
+                        : v === false ? <><span className="pl-dash" aria-hidden="true">-</span><span className="sr">{t.plans.no}</span></>
                         : L(v)}
                     </td>
                   ))}

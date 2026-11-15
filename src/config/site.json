@@ -18,7 +18,7 @@
     "phone": "+380 98 929 23 72"
   },
   "form": {
-    "_comment": "endpoint: '/api/lead' = вбудований обробник (Cloudflare Worker). turnstileSiteKey: публічний ключ Cloudflare Turnstile (захист від ботів); секретний ключ — TURNSTILE_SECRET у Cloudflare. Порожньо = Turnstile вимкнено.",
+    "_comment": "endpoint: '/api/lead' = вбудований обробник (Cloudflare Worker). turnstileSiteKey: публічний ключ Cloudflare Turnstile (захист від ботів); секретний ключ - TURNSTILE_SECRET у Cloudflare. Порожньо = Turnstile вимкнено.",
     "endpoint": "/api/lead",
     "extraFields": {},
     "turnstileSiteKey": ""

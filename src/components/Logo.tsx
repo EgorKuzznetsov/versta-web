@@ -1,7 +1,7 @@
 import React from 'react';
 import site from '../config/site.json';
 
-/** Wordmark: name + a ruler-tick glyph (верста — old measure of distance, and «верстка» — page layout) */
+/** Wordmark: name + a ruler-tick glyph (верста - old measure of distance, and «верстка» - page layout) */
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
     <span className="logo">

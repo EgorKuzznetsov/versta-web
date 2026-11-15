@@ -195,7 +195,7 @@ export default function Booking() {
                   <label className={cx(err && !form.name.trim() && 'err')}><span>{T('Ім’я', 'Name')} *</span><input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} autoComplete="off" /></label>
                   <label className={cx(err && form.phone.replace(/\D/g, '').length < 9 && 'err')}><span>{T('Телефон', 'Phone')} *</span><input value={form.phone} inputMode="tel" placeholder="+380 00 000 00 00" onChange={(e) => setForm({ ...form, phone: e.target.value })} autoComplete="off" /></label>
                   <label><span>{T('Побажання', 'Notes')}</span><textarea rows={3} value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} /></label>
-                  <label className="bk-chk"><input type="checkbox" checked={form.remind} onChange={(e) => setForm({ ...form, remind: e.target.checked })} />{T('Нагадати за 2 години (у демо — не надсилається)', 'Remind me 2 hours before (not sent in demo)')}</label>
+                  <label className="bk-chk"><input type="checkbox" checked={form.remind} onChange={(e) => setForm({ ...form, remind: e.target.checked })} />{T('Нагадати за 2 години (у демо - не надсилається)', 'Remind me 2 hours before (not sent in demo)')}</label>
                   <p className="bk-privacy"><Icon n="lock" s={14} /> {T('Демо: дані залишаються тільки у вашому браузері й нікуди не надсилаються.', 'Demo: your data stays in your browser and is never sent anywhere.')}</p>
                 </form>
               )}
@@ -222,12 +222,12 @@ export default function Booking() {
               <aside className="bk-sum">
                 <h3>{T('Ваш запис', 'Your booking')}</h3>
                 <dl>
-                  <div><dt>{T('Послуга', 'Service')}</dt><dd>{svc ? L(svcOf(svc)) : '—'}</dd></div>
-                  <div><dt>{T('Майстер', 'Barber')}</dt><dd>{slot ? L(proOf(slot.pro).name) : pro === 'any' ? T('Будь-який', 'Any') : pro ? L(proOf(pro).name) : '—'}</dd></div>
-                  <div><dt>{T('Дата', 'Date')}</dt><dd>{date ? dateFmt(date, lang, { weekday: 'short', day: 'numeric', month: 'short' }) : '—'}{slot ? `, ${hm(slot.start)}` : ''}</dd></div>
-                  <div><dt>{T('Тривалість', 'Duration')}</dt><dd>{svc ? `${svcOf(svc).min} ${T('хв', 'min')}` : '—'}</dd></div>
+                  <div><dt>{T('Послуга', 'Service')}</dt><dd>{svc ? L(svcOf(svc)) : '-'}</dd></div>
+                  <div><dt>{T('Майстер', 'Barber')}</dt><dd>{slot ? L(proOf(slot.pro).name) : pro === 'any' ? T('Будь-який', 'Any') : pro ? L(proOf(pro).name) : '-'}</dd></div>
+                  <div><dt>{T('Дата', 'Date')}</dt><dd>{date ? dateFmt(date, lang, { weekday: 'short', day: 'numeric', month: 'short' }) : '-'}{slot ? `, ${hm(slot.start)}` : ''}</dd></div>
+                  <div><dt>{T('Тривалість', 'Duration')}</dt><dd>{svc ? `${svcOf(svc).min} ${T('хв', 'min')}` : '-'}</dd></div>
                 </dl>
-                <div className="bk-total"><span>{T('До сплати в салоні', 'Pay at the shop')}</span><b>{svc ? money(price, lang) : '—'}</b></div>
+                <div className="bk-total"><span>{T('До сплати в салоні', 'Pay at the shop')}</span><b>{svc ? money(price, lang) : '-'}</b></div>
                 <button type="button" className="bk-btn wide" disabled={!canNext} onClick={() => (step === 3 || (resched && step === 2) ? confirm() : setStep(step + 1))}>
                   {step === 3 || (resched && step === 2) ? (resched ? T('Підтвердити перенесення', 'Confirm new time') : T('Підтвердити запис', 'Confirm booking')) : T('Далі', 'Next')}
                 </button>
@@ -285,7 +285,7 @@ function Admin({ mine }: { mine: Bk[] }) {
       <div className="bk-adm-bar">
         <div className="bk-adm-nav">
           <button type="button" aria-label="prev" onClick={() => setOff(off - 1)}><Icon n="chevL" s={18} /></button>
-          <b>{dateFmt(week[0], lang, { day: 'numeric', month: 'short' })} — {dateFmt(week[6], lang, { day: 'numeric', month: 'short' })}</b>
+          <b>{dateFmt(week[0], lang, { day: 'numeric', month: 'short' })} - {dateFmt(week[6], lang, { day: 'numeric', month: 'short' })}</b>
           <button type="button" aria-label="next" onClick={() => setOff(off + 1)}><Icon n="chevR" s={18} /></button>
           {off !== 0 && <button type="button" className="bk-btn sm ghost" onClick={() => setOff(0)}>{T('Сьогодні', 'Today')}</button>}
         </div>

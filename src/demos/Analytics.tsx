@@ -131,7 +131,7 @@ export default function Analytics() {
     const head = ['order_id', 'date', 'client', 'service', 'amount_' + (lang === 'uk' ? 'uah' : 'eur'), 'cost_' + (lang === 'uk' ? 'uah' : 'eur')];
     const conv = (v: number) => (lang === 'uk' ? v : +(v / 45).toFixed(2));
     const rows = data.cur.map((o) => [o.id, o.d, name(o.c), L(SERVICES[o.s]), conv(o.amt), conv(o.cost)]);
-    const csv = '﻿# DEMO DATA — ' + T('демонстраційні дані', 'demonstration data') + '\n' + [head, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const csv = '﻿# DEMO DATA - ' + T('демонстраційні дані', 'demonstration data') + '\n' + [head, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
     const a = document.createElement('a'); a.href = url; a.download = `ledger-demo_${from}_${to}.csv`; a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -157,7 +157,7 @@ export default function Analytics() {
         <div className="an-head">
           <div>
             <h1>{T('Огляд бізнесу', 'Business overview')}</h1>
-            <p>{dateFmt(from, lang, { day: 'numeric', month: 'long', year: 'numeric' })} — {dateFmt(to, lang, { day: 'numeric', month: 'long', year: 'numeric' })} · {len} {T('дн.', 'days')}</p>
+            <p>{dateFmt(from, lang, { day: 'numeric', month: 'long', year: 'numeric' })} - {dateFmt(to, lang, { day: 'numeric', month: 'long', year: 'numeric' })} · {len} {T('дн.', 'days')}</p>
           </div>
           <button type="button" className="an-btn an-btn-a" onClick={exportCsv}><Icon n="download" s={16} /> {T('Експорт CSV', 'Export CSV')}</button>
         </div>

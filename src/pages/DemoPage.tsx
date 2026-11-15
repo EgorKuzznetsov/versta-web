@@ -32,7 +32,7 @@ export default function DemoPage({ id }: { id: string }) {
       <Seo />
       <header className="dbar">
         <Link to="lab" className="dbar-back" aria-label={t.common.back}><Icon n="arrowL" s={18} /><span>Demo Lab</span></Link>
-        <div className="dbar-t"><span className="mono muted">{DEMO_THEME[did].n}</span> <b>{d.name}</b> <span className="dbar-sub muted">— {d.sub}</span></div>
+        <div className="dbar-t"><span className="mono muted">{DEMO_THEME[did].n}</span> <b>{d.name}</b> <span className="dbar-sub muted">- {d.sub}</span></div>
         <span className="badge badge-a dbar-badge" title={t.common.demoNote}>{t.common.demoData}</span>
         <button type="button" className="dbar-btn" onClick={reset} title={t.common.reset}><Icon n="refresh" s={16} /><span>{t.common.reset}</span></button>
         <Link to={'lab/' + next} className="dbar-btn" title={t.lab.demos[next].name}><span>{t.lab.demos[next].name}</span><Icon n="arrow" s={16} /></Link>

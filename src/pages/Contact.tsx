@@ -29,7 +29,7 @@ export default function Contact() {
   const [tsToken, setTsToken] = useState('');
   const siteKey = (site.form as any).turnstileSiteKey as string;
 
-  // Optional Cloudflare Turnstile (bot check) — only when a site key is configured
+  // Optional Cloudflare Turnstile (bot check) - only when a site key is configured
   useEffect(() => {
     if (!siteKey || !tsBox.current) return;
     const w = window as any;
@@ -69,11 +69,11 @@ export default function Contact() {
   const typeLabel = f.type === 'unsure' ? c.unsure : f.type ? L(ITEMS.find((x) => x.id === f.type)!.name) : '';
   const budgetLabel = f.budget ? c.budgetOptions[+f.budget] : '';
   const planObj = PLANS.find((x) => x.id === f.plan);
-  const planLabel = planObj ? `${planObj.name} — ${fmt(pricing[lang].maintenance[planObj.id], lang)} ${t.plans.perMonth}` : c.planNone;
+  const planLabel = planObj ? `${planObj.name} - ${fmt(pricing[lang].maintenance[planObj.id], lang)} ${t.plans.perMonth}` : c.planNone;
   const methodLabel = c.methods[+f.method] || '';
   const text = [
-    `${c.name}: ${f.name}`, `${c.business}: ${f.business || '—'}`, `${c.type}: ${typeLabel || '—'}`, `${c.budget}: ${budgetLabel || '—'}`, `${c.plan}: ${planLabel}`,
-    `${c.method}: ${methodLabel} — ${f.contact}`, '', f.description,
+    `${c.name}: ${f.name}`, `${c.business}: ${f.business || '-'}`, `${c.type}: ${typeLabel || '-'}`, `${c.budget}: ${budgetLabel || '-'}`, `${c.plan}: ${planLabel}`,
+    `${c.method}: ${methodLabel} - ${f.contact}`, '', f.description,
   ].join('\n');
 
   const submit = async (e: React.FormEvent) => {
@@ -127,16 +127,16 @@ export default function Contact() {
               </div>
               <div className="cform-2">
                 <label className="field"><span>{c.type}</span>
-                  <select value={f.type} onChange={set('type')}><option value="">—</option>{ITEMS.map((o) => <option key={o.id} value={o.id}>{L(o.name)}</option>)}<option value="unsure">{c.unsure}</option></select>
+                  <select value={f.type} onChange={set('type')}><option value="">-</option>{ITEMS.map((o) => <option key={o.id} value={o.id}>{L(o.name)}</option>)}<option value="unsure">{c.unsure}</option></select>
                 </label>
                 <label className="field"><span>{c.budget}</span>
-                  <select value={f.budget} onChange={set('budget')}><option value="">—</option>{c.budgetOptions.map((o, i) => <option key={o} value={String(i)}>{o}</option>)}</select>
+                  <select value={f.budget} onChange={set('budget')}><option value="">-</option>{c.budgetOptions.map((o, i) => <option key={o} value={String(i)}>{o}</option>)}</select>
                 </label>
               </div>
               <label className={cx('field', fromPlan && 'hl')}><span>{c.plan}</span>
                 <select value={f.plan} onChange={set('plan')}>
                   <option value="none">{c.planNone}</option>
-                  {PLANS.map((x) => <option key={x.id} value={x.id}>{x.name} — {fmt(pricing[lang].maintenance[x.id], lang)} {t.plans.perMonth}</option>)}
+                  {PLANS.map((x) => <option key={x.id} value={x.id}>{x.name} - {fmt(pricing[lang].maintenance[x.id], lang)} {t.plans.perMonth}</option>)}
                 </select>
               </label>
               <label className={cx('field', errs.description && 'err')}><span>{c.description} *</span>

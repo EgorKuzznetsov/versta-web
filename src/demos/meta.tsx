@@ -4,7 +4,7 @@ import { useT } from '../core/i18n';
 export const DEMO_IDS = ['analytics', 'booking', 'menu', 'crm', 'store', 'estate'] as const;
 export type DemoId = (typeof DEMO_IDS)[number];
 
-/** each demo has its own palette — used by thumbnails and case pages */
+/** each demo has its own palette - used by thumbnails and case pages */
 export const DEMO_THEME: Record<DemoId, { bg: string; fg: string; ac: string; n: string; service: string }> = {
   analytics: { bg: '#121614', fg: '#E9EFEA', ac: '#7FE0B0', n: '01', service: 'dashboard' },
   booking: { bg: '#E9E1D2', fg: '#1F2A22', ac: '#2F5D46', n: '02', service: 'booking' },

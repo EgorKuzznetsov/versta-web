@@ -267,7 +267,7 @@ function ProductPage({ p, fav, onFav, onAdd, onBack }: { p: Product; fav: boolea
             <button type="button" className={cx('st-btn ghost sq', fav && 'on')} aria-pressed={fav} onClick={onFav} aria-label="♡"><Icon n="heart" s={20} /></button>
           </div>
           <details className="st-acc" open><summary>{T('Склад і догляд', 'Composition & care')}</summary><p>{T('100% льон. Прання при 30°, не відбілювати, сушити розправленим.', '100% linen. Wash at 30°, no bleach, dry flat.')}</p></details>
-          <details className="st-acc"><summary>{T('Доставка й повернення', 'Delivery & returns')}</summary><p>{T(`Нова пошта — ${money(SHIP.np, 'uk')}, курʼєр — ${money(SHIP.courier, 'uk')}. Безкоштовно від ${money(SHIP.free, 'uk')}. Повернення протягом 14 днів.`, `Post office — ${money(SHIP.np, 'en')}, courier — ${money(SHIP.courier, 'en')}. Free over ${money(SHIP.free, 'en', { decimals: false })}. Returns within 14 days.`)}</p></details>
+          <details className="st-acc"><summary>{T('Доставка й повернення', 'Delivery & returns')}</summary><p>{T(`Нова пошта - ${money(SHIP.np, 'uk')}, курʼєр - ${money(SHIP.courier, 'uk')}. Безкоштовно від ${money(SHIP.free, 'uk')}. Повернення протягом 14 днів.`, `Post office - ${money(SHIP.np, 'en')}, courier - ${money(SHIP.courier, 'en')}. Free over ${money(SHIP.free, 'en', { decimals: false })}. Returns within 14 days.`)}</p></details>
         </div>
       </div>
     </div>
@@ -313,7 +313,7 @@ function CartDrawer({ cart, setCart, promo, setPromo, totals, onClose, onCheckou
             <div className="st-promo">
               <form onSubmit={(e) => { e.preventDefault(); apply(); }}><input value={code} onChange={(e) => setCode(e.target.value)} placeholder={T('Промокод', 'Promo code')} aria-label={T('Промокод', 'Promo code')} /><button type="submit">{T('Застосувати', 'Apply')}</button></form>
               {msg && <small className="st-warn">{msg}</small>}
-              {promo && t.pr && <small className={t.valid ? 'st-ok' : 'st-warn'}>{promo}: {L(t.pr.d)}{!t.valid && ' — ' + T('умова не виконана', 'condition not met')}</small>}
+              {promo && t.pr && <small className={t.valid ? 'st-ok' : 'st-warn'}>{promo}: {L(t.pr.d)}{!t.valid && ' - ' + T('умова не виконана', 'condition not met')}</small>}
               <small className="st-hint">{T('Демо-коди', 'Demo codes')}: LEN10 · WELCOME15 · FREESHIP</small>
             </div>
             <dl className="st-tot">

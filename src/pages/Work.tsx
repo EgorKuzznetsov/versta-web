@@ -56,7 +56,7 @@ function CasePage({ slug }: { slug: string }) {
               <span>{c.year}</span>
             </div>
             <h1 className="d1 in"><SplitLine text={L(c.title)} /></h1>
-            <p className="case-client mono">{L(c.client)} — {t.work.label}</p>
+            <p className="case-client mono">{L(c.client)} - {t.work.label}</p>
             <div className="case-hero" style={{ viewTransitionName: 'case-' + c.id } as any}><DemoThumb id={c.id} /></div>
           </div>
         </header>

@@ -26,9 +26,9 @@ export default function Legal() {
           <h2>1. Хто відповідає за дані</h2>
           <p>Відповідальна особа: {owner}, {<F v={B(l.legalForm)} />}, адреса: {<F v={B(l.address)} />}, телефон: <a href={'tel:' + l.phone.replace(/[^\d+]/g, '')}>{l.phone}</a>, email: {email}.</p>
           <h2>2. Які дані ми обробляємо</h2>
-          <p>Лише ті, які ви самі залишаєте у формі заявки: ім’я, назву бізнесу, контакт для зв’язку та опис проєкту. Демо в розділі Demo Lab не передають жодних даних — усе, що ви вводите там, зберігається тільки у вашому браузері (localStorage) і може бути видалене кнопкою «Скинути демо» або очищенням даних браузера.</p>
+          <p>Лише ті, які ви самі залишаєте у формі заявки: ім’я, назву бізнесу, контакт для зв’язку та опис проєкту. Демо в розділі Demo Lab не передають жодних даних - усе, що ви вводите там, зберігається тільки у вашому браузері (localStorage) і може бути видалене кнопкою «Скинути демо» або очищенням даних браузера.</p>
           <h2>3. Мета та правова підстава</h2>
-          <p>Дані використовуються виключно для відповіді на ваш запит і підготовки пропозиції (ст. 6(1)(b) GDPR — дії до укладення договору; Закон України «Про захист персональних даних» — згода суб’єкта).</p>
+          <p>Дані використовуються виключно для відповіді на ваш запит і підготовки пропозиції (ст. 6(1)(b) GDPR - дії до укладення договору; Закон України «Про захист персональних даних» - згода суб’єкта).</p>
           <h2>4. Сервіси третіх сторін</h2>
           <p>Хостинг і обробка форми: Cloudflare Workers (Cloudflare, Inc.). IP-адреса використовується лише тимчасово для захисту форми від спаму й не зберігається на сайті. Доставка заявки: Telegram (Telegram Messenger Inc.) та email через Resend (Resend, Inc.) на скриньку Gmail (Google LLC). Шрифти: Bunny Fonts (BunnyWay d.o.o.). Аналітика й рекламні трекери не використовуються, cookies сайт не встановлює.</p>
           <h2>5. Строк зберігання</h2>
@@ -42,9 +42,9 @@ export default function Legal() {
           <h2>1. Controller</h2>
           <p>Responsible person: {owner}, {<F v={B(l.legalForm)} />}, address: {<F v={B(l.address)} />}, phone: <a href={'tel:' + l.phone.replace(/[^\d+]/g, '')}>{l.phone}</a>, email: {email}.</p>
           <h2>2. What data we process</h2>
-          <p>Only what you provide in the enquiry form: your name, business name, contact details and project description. The Demo Lab demos transmit no data — anything you enter there is stored only in your browser (localStorage) and can be deleted with “Reset demo” or by clearing your browser data.</p>
+          <p>Only what you provide in the enquiry form: your name, business name, contact details and project description. The Demo Lab demos transmit no data - anything you enter there is stored only in your browser (localStorage) and can be deleted with “Reset demo” or by clearing your browser data.</p>
           <h2>3. Purpose and legal basis</h2>
-          <p>Data is used solely to respond to your enquiry and prepare a proposal (Art. 6(1)(b) GDPR — pre-contractual steps).</p>
+          <p>Data is used solely to respond to your enquiry and prepare a proposal (Art. 6(1)(b) GDPR - pre-contractual steps).</p>
           <h2>4. Third-party services</h2>
           <p>Hosting and form processing: Cloudflare Workers (Cloudflare, Inc.). Your IP address is used only briefly to protect the form from spam and is not stored on the site. Enquiry delivery: Telegram (Telegram Messenger Inc.) and email via Resend (Resend, Inc.) to a Gmail inbox (Google LLC). Fonts: Bunny Fonts (BunnyWay d.o.o.). No analytics or advertising trackers are used, and the site sets no cookies.</p>
           <h2>5. Retention</h2>

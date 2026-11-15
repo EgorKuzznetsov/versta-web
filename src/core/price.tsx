@@ -16,7 +16,7 @@ export function nowPrice(p: Price, cfg: PricingConfig) {
 
 export const fmt = (v: number, l: Lang) => cur(v, pricing[l].currency, l);
 
-/** «від 4 000 грн  ~~7 000 грн~~» — or just «від 7 000 грн» when the promo is off */
+/** «від 4 000 грн  ~~7 000 грн~~» - or just «від 7 000 грн» when the promo is off */
 export function PriceTag({ price, from = true, suffix, size = 'm', className = '' }: { price: Price; from?: boolean; suffix?: string; size?: 's' | 'm' | 'l'; className?: string }) {
   const { lang, t } = useT();
   const cfg = pricing[lang];

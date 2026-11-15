@@ -321,7 +321,7 @@ function OrderStatus({ order, stage, names, onNew, onMin }: { order: Order; stag
     <div className="mn-status" role="status">
       <div className="mn-status-h"><span>{T('Замовлення', 'Order')} №{order.no}</span><button type="button" className="mn-ic" aria-label="minimise" onClick={onMin}><Icon n="chevD" s={18} /></button></div>
       <h3>{names[stage]}</h3>
-      <p>{stage < STAGES - 1 ? `${T('Орієнтовно', 'About')} ${left} ${T('с — у демо час прискорено', 's — time is sped up in the demo')}` : T('Смачного! Офіціант уже біля вас.', 'Enjoy! Your waiter is on the way.')}</p>
+      <p>{stage < STAGES - 1 ? `${T('Орієнтовно', 'About')} ${left} ${T('с - у демо час прискорено', 's - time is sped up in the demo')}` : T('Смачного! Офіціант уже біля вас.', 'Enjoy! Your waiter is on the way.')}</p>
       <ol className="mn-steps">{names.map((n, i) => <li key={n} className={cx(i <= stage && 'on')}><i />{n}</li>)}</ol>
       {stage >= STAGES - 1 && <button type="button" className="mn-btn" onClick={onNew}>{T('Нове замовлення', 'New order')}</button>}
     </div>

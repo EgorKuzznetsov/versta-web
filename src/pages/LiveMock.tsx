@@ -5,7 +5,7 @@ import { cx } from '../core/format';
 const DESIGN_W = 1200;
 const MIN_W = 340;
 
-/** A real, tiny website rendered at a chosen width — it reflows via container queries. */
+/** A real, tiny website rendered at a chosen width - it reflows via container queries. */
 export function LiveMock() {
   const { t } = useT();
   const stage = useRef<HTMLDivElement>(null);

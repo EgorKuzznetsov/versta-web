@@ -1,33 +1,33 @@
 {
-  "brandSuffix": " — Versta",
+  "brandSuffix": " - Versta",
   "pages": {
     "": {
       "uk": {
-        "title": "Versta — веб-студія: сайти, онлайн-запис, магазини та CRM",
+        "title": "Versta - веб-студія: сайти, онлайн-запис, магазини та CRM",
         "description": "Проєктуємо й розробляємо сайти для малого та середнього бізнесу: лендинги, корпоративні сайти, інтернет-магазини, онлайн-запис, аналітика. Спробуйте робочі демо."
       },
       "en": {
-        "title": "Versta — web studio: websites, booking, e-commerce and CRM",
+        "title": "Versta - web studio: websites, booking, e-commerce and CRM",
         "description": "We design and build websites for small and mid-sized businesses: landing pages, company sites, online stores, booking systems and dashboards. Try the working demos."
       }
     },
     "services": {
       "uk": {
-        "title": "Послуги — лендинги, магазини, онлайн-запис, веб-застосунки",
+        "title": "Послуги - лендинги, магазини, онлайн-запис, веб-застосунки",
         "description": "Дев’ять напрямків роботи простою мовою: що отримує ваш бізнес, для кого це і скільки орієнтовно коштує."
       },
       "en": {
-        "title": "Services — landing pages, stores, booking, web apps",
+        "title": "Services - landing pages, stores, booking, web apps",
         "description": "Nine services in plain language: what your business gets, who it is for and what it roughly costs."
       }
     },
     "lab": {
       "uk": {
-        "title": "Demo Lab — протестуйте робочі веб-продукти",
+        "title": "Demo Lab - протестуйте робочі веб-продукти",
         "description": "Шість інтерактивних демо: аналітика, онлайн-запис, меню ресторану, CRM, інтернет-магазин і платформа нерухомості. Усі дані демонстраційні."
       },
       "en": {
-        "title": "Demo Lab — try working web products",
+        "title": "Demo Lab - try working web products",
         "description": "Six interactive demos: analytics, online booking, restaurant menu, CRM, online store and real estate platform. All data is for demonstration."
       }
     },
@@ -104,27 +104,27 @@
     "pricing": {
       "uk": {
         "title": "Ціни на розробку сайтів і тарифи обслуговування",
-        "description": "Ціни на розробку — від лендингу до індивідуального веб-застосунку — і три тарифи технічного обслуговування сайту."
+        "description": "Ціни на розробку - від лендингу до індивідуального веб-застосунку - і три тарифи технічного обслуговування сайту."
       },
       "en": {
         "title": "Website pricing and maintenance plans",
-        "description": "Development prices — from a landing page to a custom web application — and three website maintenance plans."
+        "description": "Development prices - from a landing page to a custom web application - and three website maintenance plans."
       }
     },
     "work": {
       "uk": {
-        "title": "Роботи — концептуальні проєкти студії",
+        "title": "Роботи - концептуальні проєкти студії",
         "description": "Концептуальні проєкти з чесним маркуванням Concept: задача, дизайн, функціональність, мобільна версія й технології."
       },
       "en": {
-        "title": "Work — studio concept projects",
+        "title": "Work - studio concept projects",
         "description": "Concept projects, honestly labelled: the brief, design, features, mobile version and tech stack."
       }
     },
     "contact": {
       "uk": {
         "title": "Обговорити проєкт",
-        "description": "Розкажіть про свій бізнес — відповімо з орієнтовною оцінкою вартості та термінів."
+        "description": "Розкажіть про свій бізнес - відповімо з орієнтовною оцінкою вартості та термінів."
       },
       "en": {
         "title": "Discuss a project",

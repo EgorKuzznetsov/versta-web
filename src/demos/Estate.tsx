@@ -239,7 +239,7 @@ function Range({ label, min, max, step, v, set, fmt }: { label: string; min: num
   const pct = (x: number) => ((x - min) / (max - min)) * 100;
   return (
     <div className="es-f">
-      <span>{label} <b>{fmt(v[0])} — {fmt(v[1])}</b></span>
+      <span>{label} <b>{fmt(v[0])} - {fmt(v[1])}</b></span>
       <div className="es-range" style={{ ['--a' as any]: pct(v[0]) + '%', ['--b' as any]: pct(v[1]) + '%' }}>
         <input type="range" min={min} max={max} step={step} value={v[0]} aria-label={label + ' min'} onChange={(e) => set([Math.min(+e.target.value, v[1]), v[1]])} />
         <input type="range" min={min} max={max} step={step} value={v[1]} aria-label={label + ' max'} onChange={(e) => set([v[0], Math.max(+e.target.value, v[0])])} />
@@ -322,7 +322,7 @@ function Detail({ f, fav, onFav, onClose }: { f: Flat; fav: boolean; onFav: () =
               <div className="es-ok">
                 <Icon n="check" s={24} />
                 <p><b>{T('Запит збережено', 'Request saved')}</b><br />{dateFmt(mine.date, lang, { weekday: 'long', day: 'numeric', month: 'long' })}, {mine.time}</p>
-                <p className="es-hint">{T('У демо запит нікуди не надсилається — він зберігається лише у вашому браузері.', 'In the demo the request is not sent anywhere — it is stored only in your browser.')}</p>
+                <p className="es-hint">{T('У демо запит нікуди не надсилається - він зберігається лише у вашому браузері.', 'In the demo the request is not sent anywhere - it is stored only in your browser.')}</p>
                 <button type="button" className="es-btn ghost" onClick={() => setViewings(viewings.filter((v) => v.flat !== f.id))}>{T('Скасувати', 'Cancel')}</button>
               </div>
             ) : (

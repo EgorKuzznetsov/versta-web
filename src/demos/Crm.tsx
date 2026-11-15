@@ -72,7 +72,7 @@ export default function Crm() {
   const bellRef = useDialog(bell, () => setBell(false), { trap: false });
   const today = iso(new Date());
   const due = tasks.filter((t) => !t.done && t.due <= today);
-  const cname = (id?: string) => clients.find((c) => c.id === id)?.name || '—';
+  const cname = (id?: string) => clients.find((c) => c.id === id)?.name || '-';
   const M = (v: number) => money(v, lang, { decimals: false });
 
   const saveClient = (c: Client) => {
@@ -133,8 +133,8 @@ export default function Crm() {
                 <button type="button" className="crm-btn ghost" onClick={() => { setTasks([{ id: uid(), title: T('Звʼязатися з клієнтом', 'Contact the client'), client: c.id, due: today, done: false, prio: 'n' }, ...tasks]); setView('tasks'); setOpenC(null); }}><Icon n="bell" s={16} />{T('Нагадування', 'Reminder')}</button>
               </div>
               <dl className="crm-dl">
-                <div><dt>{T('Телефон', 'Phone')}</dt><dd>{c.phone || '—'}</dd></div>
-                <div><dt>Email</dt><dd>{c.email || '—'}</dd></div>
+                <div><dt>{T('Телефон', 'Phone')}</dt><dd>{c.phone || '-'}</dd></div>
+                <div><dt>Email</dt><dd>{c.email || '-'}</dd></div>
                 <div><dt>{T('Сегмент', 'Segment')}</dt><dd>{segName(c.seg, lang)}</dd></div>
                 <div><dt>{T('Статус', 'Status')}</dt><dd><span className={'crm-st st-' + c.status}>{stName(c.status, lang)}</span></dd></div>
                 <div><dt>{T('Джерело', 'Source')}</dt><dd>{lang === 'uk' ? c.source : SRC_EN[c.source] || c.source}</dd></div>
@@ -146,7 +146,7 @@ export default function Crm() {
                 <ul className="crm-hist">{c.orders.map((o) => <li key={o.id}><span className="crm-mut">{dateFmt(o.date, lang, { day: 'numeric', month: 'short', year: '2-digit' })}</span><span>{o.title}</span><b>{M(o.amount)}</b></li>)}</ul>
               )}
               <h3>{T('Угоди', 'Deals')}</h3>
-              {cd.length === 0 ? <p className="crm-mut">—</p> : <ul className="crm-hist">{cd.map((d) => <li key={d.id}><span className="crm-tag">{lang === 'uk' ? STAGES.find((s) => s.id === d.stage)!.uk : STAGES.find((s) => s.id === d.stage)!.en}</span><span>{d.title}</span><b>{M(d.value)}</b></li>)}</ul>}
+              {cd.length === 0 ? <p className="crm-mut">-</p> : <ul className="crm-hist">{cd.map((d) => <li key={d.id}><span className="crm-tag">{lang === 'uk' ? STAGES.find((s) => s.id === d.stage)!.uk : STAGES.find((s) => s.id === d.stage)!.en}</span><span>{d.title}</span><b>{M(d.value)}</b></li>)}</ul>}
             </div>
           </div>
         );
@@ -301,7 +301,7 @@ function Board({ deals, setDeals, clients, cname, M, onOpen }: { deals: Deal[]; 
         <div className="acc"><span>{T('Потенційна виручка', 'Weighted forecast')}</span><b>{M(weighted)}</b><small>{T('з урахуванням імовірності етапу', 'weighted by stage probability')}</small></div>
         <div><span>{T('Виграно', 'Won')}</span><b>{M(won)}</b><small>{T('Угод', 'Deals')}: {deals.filter((d) => d.stage === 'won').length}</small></div>
       </div>
-      <p className="crm-hint"><Icon n="grip" s={14} /> {T('Натисніть на картку, щоб відкрити клієнта. Перетягніть — щоб змінити етап (на телефоні — за значок).', 'Click a card to open the client. Drag it to change the stage (on a phone, by the handle).')}</p>
+      <p className="crm-hint"><Icon n="grip" s={14} /> {T('Натисніть на картку, щоб відкрити клієнта. Перетягніть - щоб змінити етап (на телефоні - за значок).', 'Click a card to open the client. Drag it to change the stage (on a phone, by the handle).')}</p>
       <div className="crm-board" ref={board}>
         {STAGES.map((s) => {
           const items = deals.filter((d) => d.stage === s.id);
@@ -311,7 +311,7 @@ function Board({ deals, setDeals, clients, cname, M, onOpen }: { deals: Deal[]; 
               <header><b>{lang === 'uk' ? s.uk : s.en}</b><span>{items.length}</span><small>{M(sum)} · {Math.round(s.p * 100)}%</small></header>
               <div className="crm-cards">
                 {items.map((d) => (
-                  <article key={d.id} className={cx('crm-card', drag?.id === d.id && 'ghosted')} tabIndex={0} aria-label={`${d.title} — ${cname(d.client)}`}
+                  <article key={d.id} className={cx('crm-card', drag?.id === d.id && 'ghosted')} tabIndex={0} aria-label={`${d.title} - ${cname(d.client)}`}
                     onPointerDown={(e) => { moved.current = false; down(e, d.id); }} onPointerMove={move} onPointerUp={up} onPointerCancel={up}
                     onClick={(e) => { if (moved.current) { moved.current = false; return; } if ((e.target as HTMLElement).closest('select,.crm-grip')) return; onOpen(d.client); }}
                     onKeyDown={(e) => { if (e.key === 'Enter' && e.target === e.currentTarget) onOpen(d.client); }}>

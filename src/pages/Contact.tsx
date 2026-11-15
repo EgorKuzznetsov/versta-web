@@ -12,21 +12,35 @@ import { fmt } from '../core/price';
 
 type Status = 'idle' | 'sending' | 'ok' | 'error' | 'offline';
 
+const DRAFT = 'versta.contactDraft';
+
 export default function Contact() {
   const { t, lang, L } = useT();
   const c = t.contact;
   // select values are language-independent ids, so switching UA/EN keeps the choices
-  const [f, setF] = useState({ name: '', business: '', type: '', budget: '', plan: 'none', description: '', method: '0', contact: '', consent: false, website: '' });
+  const EMPTY = { name: '', business: '', type: '', budget: '', plan: 'none', description: '', method: '0', contact: '', consent: false, website: '' };
+  // the draft survives a page reload (sessionStorage: this tab only, gone when the tab is closed or after sending)
+  const draft = useRef<{ f?: Partial<typeof EMPTY>; since?: number } | null>(null);
+  if (draft.current === null) {
+    try { draft.current = JSON.parse(sessionStorage.getItem(DRAFT) || '{}'); } catch { draft.current = {}; }
+  }
+  const [f, setF] = useState({ ...EMPTY, ...(draft.current?.f || {}), website: '' });
   const [fromPlan, setFromPlan] = useState(false);
   const [errs, setErrs] = useState<Record<string, boolean>>({});
   const [status, setStatus] = useState<Status>('idle');
   const [fromCalc, setFromCalc] = useState(false);
   const { copy, done } = useCopy();
   const [errCode, setErrCode] = useState('');
-  const openedAt = useRef(Date.now()); // bots submit instantly; the server ignores submissions faster than ~2.5 s
+  const openedAt = useRef(Math.min(Date.now(), draft.current?.since || Date.now())); // bots submit instantly; the server ignores submissions faster than ~2.5 s
   const tsBox = useRef<HTMLDivElement>(null);
   const tsId = useRef<string | null>(null);
   const [tsToken, setTsToken] = useState('');
+  useEffect(() => {
+    if (status === 'ok') { try { sessionStorage.removeItem(DRAFT); } catch { /* ignore */ } return; }
+    const { website, ...keep } = f;
+    const empty = !keep.name && !keep.business && !keep.description && !keep.contact && !keep.type && !keep.budget && keep.plan === 'none';
+    try { if (empty) sessionStorage.removeItem(DRAFT); else sessionStorage.setItem(DRAFT, JSON.stringify({ f: keep, since: openedAt.current })); } catch { /* storage blocked */ }
+  }, [f, status]);
   const siteKey = (site.form as any).turnstileSiteKey as string;
 
   // Optional Cloudflare Turnstile (bot check) - only when a site key is configured

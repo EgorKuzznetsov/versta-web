@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { isHydrating } from './ssr';
 
 const NS = 'versta.';
 export function readStore<T>(key: string, fallback: T): T {
@@ -18,8 +19,16 @@ export function clearStore(prefix: string) {
 
 /** useState, synced to localStorage */
 export function useStored<T>(key: string, init: T | (() => T)) {
-  const [v, setV] = useState<T>(() => readStore<T>(key, typeof init === 'function' ? (init as () => T)() : init));
-  useEffect(() => { writeStore(key, v); }, [key, v]);
+  const deferred = useRef(isHydrating());
+  const [v, setV] = useState<T>(() => {
+    const d = typeof init === 'function' ? (init as () => T)() : init;
+    return deferred.current ? d : readStore<T>(key, d);
+  });
+  const loaded = useRef(!deferred.current);
+  useEffect(() => {
+    if (!loaded.current) { loaded.current = true; setV((cur) => readStore<T>(key, cur)); return; }
+    writeStore(key, v);
+  }, [key, v]);
   return [v, setV] as const;
 }
 
@@ -49,10 +58,11 @@ export function useReveal<T extends HTMLElement>(opts: { threshold?: number } = 
 }
 
 export function useMedia(q: string) {
-  const [m, setM] = useState(() => matchMedia(q).matches);
+  const [m, setM] = useState(() => !isHydrating() && typeof matchMedia !== 'undefined' && matchMedia(q).matches);
   useEffect(() => {
     const mq = matchMedia(q);
     const f = () => setM(mq.matches);
+    f();
     mq.addEventListener('change', f);
     return () => mq.removeEventListener('change', f);
   }, [q]);

@@ -2,10 +2,12 @@ import React, { useSyncExternalStore } from 'react';
 import site from '../config/site.json';
 
 export type Lang = 'uk' | 'en';
-const MODE: 'path' | 'hash' = ((window as any).__ROUTING || site.routing) === 'hash' ? 'hash' : 'path';
+const HAS_DOM = typeof window !== 'undefined' && typeof document !== 'undefined';
+const MODE: 'path' | 'hash' = ((HAS_DOM && (window as any).__ROUTING) || site.routing) === 'hash' ? 'hash' : 'path';
 const EVT = 'versta:nav';
 
 function raw(): string {
+  if (!HAS_DOM) return ssrPath;
   if (MODE === 'hash') return location.hash.replace(/^#/, '') || '/';
   return location.pathname;
 }
@@ -29,7 +31,10 @@ export function href(path: string, lang: Lang): string {
   return s.length > 1 && !s.endsWith('/') ? s : s;
 }
 
+let ssrPath = '/';
 let snapshot = parse(raw());
+/** Build-time prerender only: set the route that is being rendered. */
+export function __setSsrRoute(p: string) { ssrPath = p; snapshot = parse(p); }
 function subscribe(cb: () => void) {
   const on = () => { snapshot = parse(raw()); cb(); };
   window.addEventListener('popstate', on);
@@ -42,7 +47,7 @@ function subscribe(cb: () => void) {
   };
 }
 export function useRoute(): Route {
-  return useSyncExternalStore(subscribe, () => snapshot);
+  return useSyncExternalStore(subscribe, () => snapshot, () => snapshot);
 }
 
 const reduce = () => document.documentElement.classList.contains('rm') || matchMedia('(prefers-reduced-motion: reduce)').matches;

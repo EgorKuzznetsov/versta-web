@@ -30,14 +30,14 @@ export default function Home() {
           </h1>
           <div className="hero-grid">
             <div className="hero-side">
-              <Reveal><p className="lead">{t.hero.lead}</p></Reveal>
-              <Reveal className="hero-act" delay={120}>
+              <Reveal className="rv-t"><p className="lead">{t.hero.lead}</p></Reveal>
+              <Reveal className="hero-act rv-t" delay={120}>
                 <Link to="work" className="btn btn-p">{t.hero.work} <Icon n="arrow" s={18} /></Link>
                 <Link to="contact" className="btn">{t.hero.talk}</Link>
                 <Link to="lab" className="tlink">{t.hero.demo} <Icon n="arrow" s={16} /></Link>
               </Reveal>
             </div>
-            <Reveal className="hero-mock" delay={200}><LiveMock /></Reveal>
+            <Reveal className="hero-mock rv-t" delay={200}><LiveMock /></Reveal>
           </div>
         </div>
       </section>

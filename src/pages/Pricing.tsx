@@ -23,7 +23,7 @@ export default function Pricing() {
         <div className="wrap g12">
           <div className="phead-k"><span className="kicker">{t.pricing.kicker}</span></div>
           <h1 className="d1 phead-t in"><SplitLine text={t.pricing.title} /></h1>
-          <Reveal className="phead-l">
+          <Reveal className="phead-l rv-t">
             <p className="lead">{t.pricing.lead}</p>
             <div className="hero-act" style={{ marginTop: 24 }}>
               <Link to="pricing/maintenance" keepScroll className="tlink">{t.pricing.toPlans} <Icon n="arrow" s={16} /></Link>

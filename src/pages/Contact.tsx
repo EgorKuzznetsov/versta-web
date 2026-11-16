@@ -6,6 +6,7 @@ import { Reveal, SplitLine } from '../components/Reveal';
 import { Seo, ContactLinks } from '../components/Chrome';
 import { useCopy } from '../core/hooks';
 import { cx } from '../core/format';
+import { isHydrating } from '../core/ssr';
 import site from '../config/site.json';
 import { pricing, ITEMS, PLANS } from '../config/pricing';
 import { fmt } from '../core/price';
@@ -21,10 +22,18 @@ export default function Contact() {
   const EMPTY = { name: '', business: '', type: '', budget: '', plan: 'none', description: '', method: '0', contact: '', consent: false, website: '' };
   // the draft survives a page reload (sessionStorage: this tab only, gone when the tab is closed or after sending)
   const draft = useRef<{ f?: Partial<typeof EMPTY>; since?: number } | null>(null);
-  if (draft.current === null) {
-    try { draft.current = JSON.parse(sessionStorage.getItem(DRAFT) || '{}'); } catch { draft.current = {}; }
-  }
+  const readDraft = () => { try { return JSON.parse(sessionStorage.getItem(DRAFT) || '{}'); } catch { return {}; } };
+  const deferDraft = useRef(isHydrating());
+  if (draft.current === null) draft.current = deferDraft.current ? {} : readDraft();
   const [f, setF] = useState({ ...EMPTY, ...(draft.current?.f || {}), website: '' });
+  // after hydrating prerendered HTML, restore the draft (it could not be part of the static markup)
+  useEffect(() => {
+    if (!deferDraft.current) return;
+    deferDraft.current = false;
+    const d = readDraft(); draft.current = d;
+    if (d.since) openedAt.current = Math.min(openedAt.current, d.since);
+    if (d.f) setF((cur) => ({ ...cur, ...d.f, website: '' }));
+  }, []);
   const [fromPlan, setFromPlan] = useState(false);
   const [errs, setErrs] = useState<Record<string, boolean>>({});
   const [status, setStatus] = useState<Status>('idle');
@@ -117,7 +126,7 @@ export default function Contact() {
         <div className="wrap g12">
           <div className="phead-k"><span className="kicker">{c.kicker}</span></div>
           <h1 className="d1 phead-t in"><SplitLine text={c.title} /></h1>
-          <Reveal className="phead-l"><p className="lead">{c.lead}</p></Reveal>
+          <Reveal className="phead-l rv-t"><p className="lead">{c.lead}</p></Reveal>
         </div>
       </section>
       <section className="contact">

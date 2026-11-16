@@ -20,7 +20,7 @@ export default function Work() {
         <div className="wrap g12">
           <div className="phead-k"><span className="kicker">{t.work.kicker}</span></div>
           <h1 className="d1 phead-t in"><SplitLine text={t.work.title} /></h1>
-          <Reveal className="phead-l"><p className="lead">{t.work.lead}</p></Reveal>
+          <Reveal className="phead-l rv-t"><p className="lead">{t.work.lead}</p></Reveal>
         </div>
       </section>
       <section className="sec sec-tight"><div className="wrap"><WorkList /></div></section>

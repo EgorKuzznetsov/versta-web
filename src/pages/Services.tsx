@@ -29,7 +29,7 @@ export default function Services() {
         <div className="wrap g12">
           <div className="phead-k"><span className="kicker">{t.services.kicker}</span></div>
           <h1 className="d1 phead-t in"><SplitLine text={t.services.title} /></h1>
-          <Reveal className="phead-l"><p className="lead">{t.services.lead}</p>
+          <Reveal className="phead-l rv-t"><p className="lead">{t.services.lead}</p>
             {promoOn() && <p className="svc-promo"><span className="badge badge-a">−{discountPct()}%</span> <Link to="pricing" className="tlink">{t.promo.title} <Icon n="arrow" s={14} /></Link></p>}
           </Reveal>
         </div>

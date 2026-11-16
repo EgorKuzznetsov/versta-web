@@ -1,6 +1,7 @@
 import { reloadOnce } from './core/lazy';
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import { setHydrating } from './core/ssr';
 import App from './App';
 import { parse, href, navigate, routingMode } from './core/router';
 import { LANG_KEY } from './core/i18n';
@@ -20,4 +21,13 @@ try {
 // a module preload failed (stale chunk after a deploy) → reload once instead of a blank page
 window.addEventListener('vite:preloadError', (e) => { if (reloadOnce()) e.preventDefault(); });
 
-createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);
+const rootEl = document.getElementById('root')!;
+const app = <React.StrictMode><App /></React.StrictMode>;
+// Pages are prerendered at build time (scripts/prerender.mjs): hydrate them; demos ship an empty root.
+if (rootEl.hasChildNodes()) {
+  setHydrating(true);
+  // mismatches (e.g. the language was switched from a saved preference) are re-rendered by React on its own
+  hydrateRoot(rootEl, app, { onRecoverableError: () => {} });
+} else {
+  createRoot(rootEl).render(app);
+}

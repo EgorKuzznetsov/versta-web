@@ -4,20 +4,20 @@
     "": {
       "uk": {
         "title": "Versta - веб-студія: сайти, онлайн-запис, магазини та CRM",
-        "description": "Проєктуємо й розробляємо сайти для малого та середнього бізнесу: лендинги, корпоративні сайти, інтернет-магазини, онлайн-запис, аналітика. Спробуйте робочі демо."
+        "description": "Сайти для малого та середнього бізнесу: лендинги, корпоративні сайти, інтернет-магазини, онлайн-запис, CRM. Спробуйте робочі демо й порахуйте ціну."
       },
       "en": {
         "title": "Versta - web studio: websites, booking, e-commerce and CRM",
-        "description": "We design and build websites for small and mid-sized businesses: landing pages, company sites, online stores, booking systems and dashboards. Try the working demos."
+        "description": "Websites for small and mid-sized businesses: landing pages, company sites, online stores, booking and CRM. Try working demos and estimate the price."
       }
     },
     "services": {
       "uk": {
-        "title": "Послуги - лендинги, магазини, онлайн-запис, веб-застосунки",
+        "title": "Послуги: лендинги, магазини, онлайн-запис",
         "description": "Дев’ять напрямків роботи простою мовою: що отримує ваш бізнес, для кого це і скільки орієнтовно коштує."
       },
       "en": {
-        "title": "Services - landing pages, stores, booking, web apps",
+        "title": "Services: landing pages, stores, booking",
         "description": "Nine services in plain language: what your business gets, who it is for and what it roughly costs."
       }
     },
@@ -94,11 +94,11 @@
     "calculator": {
       "uk": {
         "title": "Калькулятор вартості сайту",
-        "description": "Порахуйте орієнтовну вартість і терміни розробки сайту за хвилину."
+        "description": "Порахуйте орієнтовну вартість і терміни сайту за хвилину: тип сайту, сторінки, мови, функції. Ціни з нагоди відкриття та економія одразу видно."
       },
       "en": {
         "title": "Website cost calculator",
-        "description": "Estimate the cost and timeline of your website in a minute."
+        "description": "Estimate your website cost and timeline in a minute: site type, pages, languages and features. Launch prices and your savings are shown right away."
       }
     },
     "pricing": {

@@ -5,6 +5,7 @@ import { Logo } from './Logo';
 import { Icon } from './Icon';
 import { EmailMenu } from './EmailMenu';
 import { useLockBody, useDialog } from '../core/hooks';
+import { ssrMeta, clipDescription } from '../core/ssr';
 import site from '../config/site.json';
 import seo from '../i18n/seo.json';
 
@@ -168,11 +169,12 @@ function setMeta(sel: string, attr: string, val: string) {
 
 export function Seo({ title, description, noindex }: { title?: string; description?: string; noindex?: boolean }) {
   const r = useRoute();
+  const entry = (seo.pages as any)[r.path]?.[r.lang] || (seo.pages as any)[r.segs[0] || '']?.[r.lang];
+  const ti = title || entry?.title || seo.pages[''][r.lang].title;
+  const de = clipDescription(description || entry?.description || seo.pages[''][r.lang].description);
+  const full = r.path === '' ? ti : ti + seo.brandSuffix;
+  if (typeof document === 'undefined') { ssrMeta.title = full; ssrMeta.description = de; ssrMeta.noindex = !!noindex; }
   useEffect(() => {
-    const entry = (seo.pages as any)[r.path]?.[r.lang] || (r.segs[0] === 'work' ? null : null);
-    const ti = title || entry?.title || seo.pages[''][r.lang].title;
-    const de = description || entry?.description || seo.pages[''][r.lang].description;
-    const full = r.path === '' ? ti : ti + seo.brandSuffix;
     document.title = full;
     document.documentElement.lang = r.lang;
     setMeta('meta[name="description"]', 'content', de);
@@ -187,7 +189,7 @@ export function Seo({ title, description, noindex }: { title?: string; descripti
     setMeta('link[hreflang="en"]', 'href', pathFor('en'));
     setMeta('link[hreflang="x-default"]', 'href', pathFor('uk'));
     document.head.querySelectorAll('link[hreflang]').forEach((l) => l.setAttribute('rel', 'alternate'));
-  }, [r.path, r.lang, title, description, noindex]);
+  }, [r.path, r.lang, full, de, noindex]);
   return null;
 }
 

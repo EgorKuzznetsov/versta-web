@@ -19,7 +19,7 @@ export function LaunchHead({ n, aside }: { n: string; aside?: React.ReactNode })
   const { t } = useT();
   const on = promoOn();
   return (
-    <Reveal className="shead g12 lo-head">
+    <Reveal className="shead g12 lo-head rv-t">
       <div className="shead-k"><span className="mono muted">({n})</span><span className="kicker">{on ? t.promo.kicker : t.pricing.kicker}</span></div>
       <div className="shead-t">
         <h2 className="d2">{on ? t.promo.title : t.pricing.devTitle}</h2>

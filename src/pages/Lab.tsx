@@ -14,7 +14,7 @@ export default function Lab() {
         <div className="wrap g12">
           <div className="phead-k"><span className="kicker">{t.lab.kicker}</span></div>
           <h1 className="d1 phead-t in"><SplitLine text={t.lab.title} /></h1>
-          <Reveal className="phead-l">
+          <Reveal className="phead-l rv-t">
             <p className="lead">{t.lab.lead}</p>
             <p className="honest"><Icon n="info" s={16} /> {t.lab.honest}</p>
           </Reveal>

@@ -105,7 +105,7 @@ export default function Calculator() {
         <div className="wrap g12">
           <div className="phead-k"><span className="kicker">{t.calc.kicker}</span></div>
           <h1 className="d1 phead-t in"><SplitLine text={t.calc.title} /></h1>
-          <Reveal className="phead-l">
+          <Reveal className="phead-l rv-t">
             <p className="lead">{t.calc.lead}</p>
             {promo && <p className="svc-promo"><span className="badge badge-a">−{discountPct()}%</span> <span>{t.promo.title}</span></p>}
           </Reveal>

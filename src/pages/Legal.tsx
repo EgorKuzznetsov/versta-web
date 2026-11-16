@@ -90,7 +90,7 @@ export default function Legal() {
   if (!d) return <NotFound />;
   return (
     <section className="legal">
-      <Seo />
+      <Seo noindex />
       <div className="wrap g12">
         <div className="legal-k"><span className="kicker">{t.footer.legal}</span></div>
         <div className="legal-c">

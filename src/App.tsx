@@ -6,6 +6,10 @@ import { Header, Footer } from './components/Chrome';
 import { Boundary } from './components/Boundary';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import { setHydrating } from './core/ssr';
+
+// rendered after the page inside the same Suspense boundary: its effect runs once the page has hydrated
+function HydrationDone() { React.useEffect(() => { setHydrating(false); }, []); return null; }
 
 const Services = lazyRetry(() => import('./pages/Services'));
 const Lab = lazyRetry(() => import('./pages/Lab'));
@@ -44,7 +48,7 @@ export default function App() {
         <>
           <Header />
           <main id="main" className="main">
-            <Boundary resetKey={r.path}><Suspense fallback={<div className="pload" />}><Page /></Suspense></Boundary>
+            <Boundary resetKey={r.path}><Suspense fallback={<div className="pload" />}><Page /><HydrationDone /></Suspense></Boundary>
           </main>
           <Footer />
         </>

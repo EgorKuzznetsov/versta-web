@@ -120,7 +120,7 @@ function MockSite({ wire }: { wire: boolean }) {
       </div>
       <div className="ms-hero">
         <div className="ms-copy">
-          <h3>{m.title}</h3>
+          <p className="ms-title">{m.title}</p>
           <p>{m.text}</p>
           <span className="ms-cta">{m.cta} →</span>
         </div>

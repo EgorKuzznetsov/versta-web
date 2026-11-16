@@ -72,7 +72,7 @@ export function LabGrid({ big = false }: { big?: boolean }) {
                 <span className="mono">{th.n} / {d.name}</span>
                 <span className="badge">{t.common.demoProject}</span>
               </div>
-              <h3 className="d4">{d.sub}</h3>
+              {big ? <h2 className="d4">{d.sub}</h2> : <h3 className="d4">{d.sub}</h3>}
               <p className="muted">{d.desc}</p>
               <span className="tlink">{t.common.openDemo} <Icon n="arrow" s={16} /></span>
             </Link>

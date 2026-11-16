@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRenderer } from './prerender.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.resolve(root, process.argv[2] || 'dist');
@@ -37,9 +38,11 @@ function jsonLd(lang) {
   };
 }
 
-function head(r, lang, { noindex = false } = {}) {
-  const m = meta(r, lang);
-  const title = r === '' ? m.title : m.title + seo.brandSuffix;
+function head(r, lang, { noindex = false, page = null, ld = [] } = {}) {
+  const base = meta(r, lang);
+  const m = { title: base.title, description: page?.description || base.description };
+  const title = page?.title || (r === '' ? m.title : m.title + seo.brandSuffix);
+  noindex = noindex || !!page?.noindex;
   return [
     `<title>${esc(title)}</title>`,
     `<meta name="description" content="${esc(m.description)}" />`,
@@ -58,18 +61,49 @@ function head(r, lang, { noindex = false } = {}) {
     `<meta property="og:locale" content="${lang === 'uk' ? 'uk_UA' : 'en_US'}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     r === '' && !noindex && `<script type="application/ld+json">${JSON.stringify(jsonLd(lang))}</script>`,
+    ...(!noindex ? ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x).replace(/</g, '\\u003c')}</script>`) : []),
   ].filter(Boolean).join('\n    ');
 }
-const render = (r, lang, o) =>
-  tpl.replace(/<!--SEO-->[\s\S]*?<!--\/SEO-->/, '<!--SEO-->\n    ' + head(r, lang, o) + '\n    <!--/SEO-->').replace(/<html lang="[^"]*"/, `<html lang="${lang}"`);
+const render = (r, lang, o, body = '') =>
+  tpl.replace(/<!--SEO-->[\s\S]*?<!--\/SEO-->/, '<!--SEO-->\n    ' + head(r, lang, o) + '\n    <!--/SEO-->').replace(/<html lang="[^"]*"/, `<html lang="${lang}"`)
+    .replace('<div id="root"></div>', () => `<div id="root">${body}</div>`);
 
-let n = 0;
+// Prerender page content so search engines and link previews see real text, not an empty <div id="root">.
+// Demos (lab/<id>) stay client-rendered: they depend on today's date and on data kept in the visitor's browser.
+// Any failure here only means plain client-rendered pages, never a failed build.
+let ssr = null;
+try { ssr = await createRenderer(root); } catch (e) { console.warn('postbuild: prerender disabled -', e.message.split('\n')[0]); }
+const isDemo = (r) => /^lab\/./.test(r);
+const plain = (t) => String(t || '').replace(seo.brandSuffix, '').trim();
+function structured(r, lang, page) {
+  if (!r) return [];
+  const segs = r.split('/');
+  const items = [{ name: site.studio.name, item: url(lang, '') }];
+  if (segs.length > 1) items.push({ name: plain(meta(segs[0], lang).title).split(/[:\-–]/)[0].trim(), item: url(lang, segs[0]) });
+  items.push({ name: plain(page?.title || meta(r, lang).title), item: url(lang, r) });
+  const out = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, ...x })) }];
+  if (segs[0] === 'services' && segs[1] && page) {
+    const off = ssr?.offerFor?.(segs[1], lang);
+    out.push({
+      '@context': 'https://schema.org', '@type': 'Service', name: plain(page.title), description: page.description, url: url(lang, r),
+      areaServed: ['UA', 'EU'], provider: { '@type': 'ProfessionalService', name: site.studio.name, url: url(lang, '') },
+      ...(off ? { offers: { '@type': 'Offer', price: off.price, priceCurrency: off.currency, url: url(lang, r), availability: 'https://schema.org/InStock' } } : {}),
+    });
+  }
+  return out;
+}
+
+let n = 0, pre = 0;
 for (const lang of ['uk', 'en']) {
   for (const r of routes) {
     const rel = (lang === 'en' ? 'en/' : '') + r;
     const file = path.join(dist, rel, 'index.html');
+    let body = '', page = null;
+    if (ssr && !isDemo(r)) {
+      try { const out = await ssr('/' + rel); body = out.html; page = out.meta; pre++; } catch (e) { console.warn(`postbuild: prerender failed for /${rel} -`, e.message.split('\n')[0]); }
+    }
     fs.mkdirSync(path.dirname(file), { recursive: true });
-    fs.writeFileSync(file, render(r, lang));
+    fs.writeFileSync(file, render(r, lang, { page, ld: structured(r, lang, page) }, body));
     n++;
   }
 }
@@ -86,4 +120,4 @@ for (const r of routes.filter((x) => !x.startsWith('legal/'))) {
 sm.push('</urlset>');
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), sm.join('\n'));
 fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${domain}/sitemap.xml\n`);
-console.log(`postbuild: ${n} route pages, 404.html, sitemap.xml, robots.txt → ${path.relative(root, dist)}`);
+console.log(`postbuild: ${n} route pages (${pre} prerendered), 404.html, sitemap.xml, robots.txt → ${path.relative(root, dist)}`);

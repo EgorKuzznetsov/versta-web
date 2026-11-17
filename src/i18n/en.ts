@@ -324,6 +324,7 @@ const en: Dict = {
     yes: 'Yes',
     no: 'No',
   },
+  guarantees: { kicker: 'Guarantees', title: 'Official and transparent', note: 'All terms are set out in the contract.' },
   terms: {
     title: 'Maintenance terms',
     small: 'A small change is',

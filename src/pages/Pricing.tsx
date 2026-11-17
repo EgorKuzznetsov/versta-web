@@ -5,7 +5,7 @@ import { Icon } from '../components/Icon';
 import { Reveal, SplitLine } from '../components/Reveal';
 import { Seo } from '../components/Chrome';
 import { SectionHead, ContactCta } from './Sections';
-import { LaunchHead, LaunchList, Plans, Terms } from './PricingParts';
+import { LaunchHead, LaunchList, Plans, Terms, Guarantees } from './PricingParts';
 
 export default function Pricing() {
   const { t } = useT();
@@ -36,6 +36,7 @@ export default function Pricing() {
         <div className="wrap">
           <LaunchHead n="01" />
           <LaunchList />
+          <Guarantees />
         </div>
       </section>
       <section className="sec sec-paper" id="maintenance">

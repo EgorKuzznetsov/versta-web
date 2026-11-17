@@ -3,7 +3,7 @@ import { useT } from '../core/i18n';
 import { navigate, href } from '../core/router';
 import { Icon } from '../components/Icon';
 import { Reveal } from '../components/Reveal';
-import { pricing, ITEMS, PLANS, COMPARE, TERMS, PlanId, ItemId } from '../config/pricing';
+import { pricing, ITEMS, PLANS, COMPARE, TERMS, GUARANTEES, PlanId, ItemId } from '../config/pricing';
 import { promoOn, discountPct, fmt, nowPrice } from '../core/price';
 import { useTween } from '../core/hooks';
 import { cx } from '../core/format';
@@ -154,6 +154,28 @@ export function Plans() {
         </div>
       </Reveal>
     </div>
+  );
+}
+
+export function Guarantees() {
+  const { t, L } = useT();
+  return (
+    <Reveal className="gt" id="guarantees">
+      <div className="gt-head">
+        <span className="kicker">{t.guarantees.kicker}</span>
+        <h3 className="d3">{t.guarantees.title}</h3>
+      </div>
+      <ul className="gt-list">
+        {GUARANTEES.map((g) => (
+          <li key={g.title.uk}>
+            <span className="gt-ck" aria-hidden="true"><Icon n="check" s={18} /></span>
+            <b>{L(g.title)}</b>
+            <span>{L(g.text)}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mono muted gt-note">{t.guarantees.note}</p>
+    </Reveal>
   );
 }
 

@@ -83,6 +83,16 @@ export const COMPARE: { label: Bi; v: [Bi | boolean, Bi | boolean, Bi | boolean]
 ];
 
 /** Умови обслуговування */
+/** Гарантії студії (показуються на сторінці цін і на головній). Ці ж умови мають бути в договорі. */
+export const GUARANTEE_MONTHS = 1;
+export const GUARANTEES: { title: Bi; text: Bi }[] = [
+  { title: { uk: 'Офіційно, як ФОП', en: 'Officially registered' }, text: { uk: 'Договір із ціною й термінами, рахунок і безготівкова оплата.', en: 'A contract with the price and timeline, an invoice and bank transfer payment.' } },
+  { title: { uk: '50% / 50%', en: '50% / 50%' }, text: { uk: 'Половина на старті, решта - після здачі сайту.', en: 'Half upfront, the rest when the website is delivered.' } },
+  { title: { uk: 'Гарантія 1 місяць', en: '1-month warranty' }, text: { uk: 'Безкоштовно виправляємо помилки протягом місяця після запуску.', en: 'We fix bugs free of charge for a month after launch.' } },
+  { title: { uk: 'Сайт і домен - ваші', en: 'You own the site and domain' }, text: { uk: 'Передаємо всі доступи, без прив’язки до нас.', en: 'We hand over all access, with no lock-in.' } },
+  { title: { uk: 'Повернемо передоплату', en: 'Prepayment refund' }, text: { uk: 'Якщо робота ще не почалась.', en: 'If work has not started yet.' } },
+];
+
 export const TERMS = {
   smallChange: {
     uk: ['Заміна або додавання тексту в наявний блок', 'Заміна зображення', 'Зміна вартості товару чи послуги', 'Оновлення контактної інформації', 'Невелика зміна наявного елемента інтерфейсу'],
@@ -93,14 +103,14 @@ export const TERMS = {
       'Створення нових сторінок, складних функцій, нових інтеграцій і масштабний редизайн розраховуються окремо.',
       'Невикористані зміни не переносяться на наступний місяць.',
       'Домен і хостинг оплачуються окремо.',
-      'Виправлення помилок, знайдених під час перевірок, узгоджується окремо, якщо воно не входить в умови гарантії на розроблений сайт.',
+      'Виправлення помилок, знайдених під час перевірок, узгоджується окремо, якщо воно не входить у гарантію на розроблений сайт (1 місяць після запуску).',
       'Обслуговування добровільне: після розробки ви не зобовʼязані купувати щомісячний тариф.',
     ],
     en: [
       'New pages, complex features, new integrations and large-scale redesigns are quoted separately.',
       'Unused changes do not roll over to the next month.',
       'Domain and hosting are paid separately.',
-      'Fixing issues found during checks is agreed separately unless it is covered by the warranty for the website we built.',
+      'Fixing issues found during checks is agreed separately unless it is covered by the warranty for the website we built (1 month after launch).',
       'Maintenance is optional: you are not obliged to buy a monthly plan after development.',
     ],
   } as Bi<string[]>,

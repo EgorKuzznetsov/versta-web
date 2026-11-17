@@ -8,7 +8,7 @@ import { LiveMock } from './LiveMock';
 import { SectionHead, ServicesIndex, LabGrid, WorkList, ProcessRuler, ContactCta } from './Sections';
 import { pricing, ITEMS, ItemId } from '../config/pricing';
 import { PriceTag, promoOn } from '../core/price';
-import { LaunchHead, LaunchList, handOff } from './PricingParts';
+import { LaunchHead, LaunchList, handOff, Guarantees } from './PricingParts';
 import { cx } from '../core/format';
 
 export default function Home() {
@@ -85,6 +85,7 @@ export default function Home() {
         <div className="wrap">
           <LaunchHead n="05" aside={<Link to="pricing" className="tlink">{t.promo.all} <Icon n="arrow" s={16} /></Link>} />
           <LaunchList />
+          <Guarantees />
         </div>
       </section>
 
